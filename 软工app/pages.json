@@ -40,8 +40,9 @@
 		"color":"#A9A9A9",
 		"selectedColor":"#383838",
 		"borderStyle":"white",
-		"backgroundColor":"#FFFFFF",
-		// "background": "static/backgr.png"
+		"height": "80px",
+		// "backgroundColor":"#FFFFFF",
+		"backgroundImage": "static/backgr.png",
 		
 		"list":[
 			{
