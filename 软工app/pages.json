@@ -1,9 +1,32 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "uni-app"
+			"path" : "pages/tabbar/shouye/shouye",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+				
+			}
+		},
+		{
+			"path" : "pages/tabbar/xiaoxi/xiaoxi",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/tabbar/lianxiren/lianxiren",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/tabbar/wode/wode",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
 			}
 		}
 	],
@@ -13,5 +36,40 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	"uniIdRouter": {}
+	"tabBar": {
+		"color":"#A9A9A9",
+		"selectedColor":"#383838",
+		"borderStyle":"white",
+		"backgroundColor":"#FFFFFF",
+		// "background": "static/backgr.png"
+		
+		"list":[
+			{
+				"pagePath" : "pages/tabbar/shouye/shouye",
+				"text":"首页",
+				"iconPath":"static/shouyeq.png",
+				"selectedIconPath": "static/shouyes.png"
+			},
+			{
+				"pagePath":"pages/tabbar/xiaoxi/xiaoxi",
+				"text":"消息",
+				"iconPath":"static/xiaoxiq.png",
+				"selectedIconPath": "static/xiaoxis.png"
+			},
+			{
+				"pagePath":"pages/tabbar/lianxiren/lianxiren",
+				"text":"联系人",
+				"iconPath":"static/lianxirenq.png",
+				"selectedIconPath": "static/lainxirens.png"
+			},
+			{
+				"pagePath":"pages/tabbar/wode/wode",
+				"text":"我的",
+				"iconPath":"static/wodeq.png",
+				"selectedIconPath": "static/wodes.png"
+			}
+		]
+		
+	}
 }
+
