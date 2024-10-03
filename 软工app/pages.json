@@ -4,44 +4,48 @@
 			"path" : "pages/tabbar/shouye/shouye",
 			"style" : 
 			{
-				"navigationBarTitleText" : ""
-				
+				"navigationBarTitleText" : "推荐项目",
+				"navigationBarBackgroundColor" :"#FFFFFF",
+				"navigationStyle": "custom"
 			}
 		},
 		{
 			"path" : "pages/tabbar/xiaoxi/xiaoxi",
 			"style" : 
 			{
-				"navigationBarTitleText" : ""
+				"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
 			}
 		},
 		{
 			"path" : "pages/tabbar/lianxiren/lianxiren",
 			"style" : 
 			{
-				"navigationBarTitleText" : ""
+				"navigationBarTitleText" : "联系人",
+				"navigationStyle": "custom"
 			}
 		},
 		{
 			"path" : "pages/tabbar/wode/wode",
 			"style" : 
 			{
-				"navigationBarTitleText" : ""
+				"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
 			}
 		}
 	],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-	},
+	// "globalStyle": {
+	// 	"navigationBarTextStyle": "black",
+	// 	"navigationBarTitleText": "uni-app",
+	// 	"navigationBarBackgroundColor": "#F8F8F8",
+	// 	"backgroundColor": "#F8F8F8"
+	// },
 	"tabBar": {
 		"color":"#A9A9A9",
 		"selectedColor":"#383838",
 		"borderStyle":"white",
 		"height": "80px",
-		// "backgroundColor":"#FFFFFF",
+		"backgroundColor":"#FFFFFF",
 		"backgroundImage": "static/backgr.png",
 		
 		"list":[
