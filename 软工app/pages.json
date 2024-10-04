@@ -32,6 +32,23 @@
 				"navigationBarTitleText" : "",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/shezhi/shezhi",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
+			}
+		},
+		
+		{
+			"path" : "pages/liaotian/liaotianjiemian",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	// "globalStyle": {
