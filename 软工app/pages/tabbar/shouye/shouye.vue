@@ -35,14 +35,15 @@
 				
 			}
 		},
-		methods: {
-			
-		},
-		components:{
-			Daohang,
-			Tuijian
-		}
+
+	methods: {
+	},
+	
+	components:{
+		Daohang,
+		Tuijian
 	}
+}
 </script>
 
 <style>
