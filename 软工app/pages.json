@@ -1,0 +1,168 @@
+{
+	"pages": [
+		{
+		"path": "pages/welcome/welcome",
+		"style": {
+			"navigationBarTitleText": "欢迎"
+			
+		}
+		},
+		{
+		"path": "pages/login/login",
+		"style": {
+			"navigationBarTitleText": "登录"
+		}
+		},
+		{
+		"path": "pages/register/register",
+		"style": {
+			"navigationBarTitleText": "注册"
+		}
+		},
+		{
+			
+			"path" : "pages/tabbar/shouye/shouye",
+			"style" : 
+			{
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/tabbar/xiaoxi/xiaoxi",
+			"style" : 
+			{
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/tabbar/lianxiren/lianxiren",
+			"style" : 
+			{
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/tabbar/wode/wode",
+			"style" : 
+			{
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/shezhi/shezhi",
+			"style" : 
+			{
+				"navigationStyle": "custom"
+			}
+		},
+		{
+		    "path": "pages/daohang1/daohang1",
+		    "style": {
+			"navigationStyle": "custom"
+		    }
+		},
+		{
+		    "path": "pages/daohang2/daohang2",
+		    "style": {
+		    "navigationStyle": "custom"
+		    }
+		},
+		{
+		    "path": "pages/daohang3/daohang3",
+		    "style": {
+		    "navigationStyle": "custom"
+		    }
+		},
+		{
+		    "path": "pages/daohang4/daohang4",
+		    "style": {
+		    "navigationStyle": "custom"
+		    }
+		},
+		{
+		    "path": "pages/daohang5/daohang5",
+		    "style": {
+		    "navigationStyle": "custom"
+		    }
+		},
+		{
+		    "path": "pages/daohang6/daohang6",
+		    "style": {
+		    "navigationStyle": "custom"
+		    }
+		},
+		{
+		    "path": "pages/sousuo/sousuo",
+		    "style": {
+		    "navigationStyle": "custom"
+		    }
+		},
+		{
+			"path" : "pages/chuangjianxiangmu/chuangjianxiangmu",
+			"style" : 
+			{
+				"navigationBarTitleText" : "创建项目"
+			}
+		},
+		{
+			"path" : "pages/projectdetail/projectdetail",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myProject/myProject",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
+			}
+		}
+		
+	],
+	// "globalStyle": {
+	// 	"navigationBarTextStyle": "black",
+	// 	"navigationBarTitleText": "uni-app",
+	// 	"navigationBarBackgroundColor": "#F8F8F8",
+	// 	"backgroundColor": "#F8F8F8"
+	// },
+	"tabBar": {
+		"color":"#A9A9A9",
+		"selectedColor":"#383838",
+		"borderStyle":"white",
+		"height": "80px",
+		"backgroundColor":"#FFFFFF",
+		"backgroundImage": "static/backgr.png",
+		
+		"list":[
+			{
+				"pagePath" : "pages/tabbar/shouye/shouye",
+				"text":"首页",
+				"iconPath":"static/shouyeq.png",
+				"selectedIconPath": "static/shouyes.png"
+			},
+			{
+				"pagePath":"pages/tabbar/xiaoxi/xiaoxi",
+				"text":"消息",
+				"iconPath":"static/xiaoxiq.png",
+				"selectedIconPath": "static/xiaoxis.png"
+			},
+			{
+				"pagePath":"pages/tabbar/lianxiren/lianxiren",
+				"text":"联系人",
+				"iconPath":"static/lianxirenq.png",
+				"selectedIconPath": "static/lainxirens.png"
+			},
+			{
+				"pagePath":"pages/tabbar/wode/wode",
+				"text":"我的",
+				"iconPath":"static/wodeq.png",
+				"selectedIconPath": "static/wodes.png"
+			}
+		]
+		
+	}
+}
+
