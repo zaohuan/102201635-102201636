@@ -53,7 +53,7 @@ export default {
   methods:{
 	  fanhui()
 	  {
-	  	uni.switchTab({
+	  	uni.navigateTo({
 	  		url:"/pages/myProject/myProject"
 	  	})
 	  }
