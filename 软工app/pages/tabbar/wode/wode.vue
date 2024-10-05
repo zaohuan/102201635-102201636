@@ -23,6 +23,11 @@
 			</view>
 			
 		</view>
+		<view class="xiangmu" @click="xiangmu">
+			<text class="xuanxiang">
+				我的项目
+			</text>
+		</view>
 		<view class="xiugai">
 			<text class="xuanxiang">
 				修改个人信息
@@ -53,8 +58,14 @@
 				uni.navigateTo({
 					url:"/pages/shezhi/shezhi"
 				})
+			},
+			xiangmu(){
+					uni.navigateTo({
+						url:"/pages/myProject/myProject"
+					})
+				}
 			}
-		}
+		
 	}
 </script>
 
@@ -129,6 +140,16 @@
 		font-size: 20px;
 		padding-left: 10px;
 		padding-top: 15px;
+	}
+	.xiangmu{
+		background-color: #FFFFFF;
+		border-radius: 50px;
+		margin-top: 40px;
+		margin-left: 30px;
+		width:330px;
+		height:50px;
+		display: flex;
+		justify-content: center;
 	}
 	.xiugai{
 		background-color: #FFFFFF;
