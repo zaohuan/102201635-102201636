@@ -1,7 +1,8 @@
 <template>
   <view class="container">
+	  <image class="welcome-image" src="/static/mainlogo.png"> </image>
     <view class="welcome-text">
-      <text>欢迎使用我们的应用</text>
+      <text>智慧项目</text>
     </view>
     <view class="button-group">
       <button @click="navigateToLogin">登录</button>
@@ -30,22 +31,31 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  flex-direction: column;
+	.container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100vh;
+		flex-direction: column;
 }
 
-.welcome-text {
-  margin-bottom: 50px;
+	.welcome-text {
+		margin-bottom: 50px;
+		font-size: 60rpx;
+		font-weight: 700;
 }
 
-.button-group {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+	.button-group {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+}
+
+	.welcome-image{
+			width: 200rpx;
+			height: 200rpx;
+			margin-bottom: 50rpx;
+			justify-content: center;
 }
 
 button {
