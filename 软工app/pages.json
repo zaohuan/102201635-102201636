@@ -4,6 +4,7 @@
 		"path": "pages/welcome/welcome",
 		"style": {
 			"navigationBarTitleText": "欢迎"
+			
 		}
 		},
 		{
@@ -23,8 +24,6 @@
 			"path" : "pages/tabbar/shouye/shouye",
 			"style" : 
 			{
-				"navigationBarTitleText" : "首页",
-				"navigationBarBackgroundColor" :"#FFFFFF",
 				"navigationStyle": "custom"
 			}
 		},
@@ -32,7 +31,6 @@
 			"path" : "pages/tabbar/xiaoxi/xiaoxi",
 			"style" : 
 			{
-				"navigationBarTitleText" : "",
 				"navigationStyle": "custom"
 			}
 		},
@@ -40,7 +38,6 @@
 			"path" : "pages/tabbar/lianxiren/lianxiren",
 			"style" : 
 			{
-				"navigationBarTitleText" : "联系人",
 				"navigationStyle": "custom"
 			}
 		},
@@ -48,7 +45,6 @@
 			"path" : "pages/tabbar/wode/wode",
 			"style" : 
 			{
-				"navigationBarTitleText" : "",
 				"navigationStyle": "custom"
 			}
 		},
@@ -56,10 +52,52 @@
 			"path" : "pages/shezhi/shezhi",
 			"style" : 
 			{
-				"navigationBarTitleText" : "",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+		    "path": "pages/daohang1/daohang1",
+		    "style": {
+			"navigationStyle": "custom"
+		    }
+		},
+		{
+		    "path": "pages/daohang2/daohang2",
+		    "style": {
+		    "navigationStyle": "custom"
+		    }
+		},
+		{
+		    "path": "pages/daohang3/daohang3",
+		    "style": {
+		    "navigationStyle": "custom"
+		    }
+		},
+		{
+		    "path": "pages/daohang4/daohang4",
+		    "style": {
+		    "navigationStyle": "custom"
+		    }
+		},
+		{
+		    "path": "pages/daohang5/daohang5",
+		    "style": {
+		    "navigationStyle": "custom"
+		    }
+		},
+		{
+		    "path": "pages/daohang6/daohang6",
+		    "style": {
+		    "navigationStyle": "custom"
+		    }
+		},
+		{
+		    "path": "pages/sousuo/sousuo",
+		    "style": {
+		    "navigationStyle": "custom"
+		    }
 		}
+		
 	],
 	// "globalStyle": {
 	// 	"navigationBarTextStyle": "black",
