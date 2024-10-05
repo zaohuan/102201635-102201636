@@ -12,11 +12,17 @@ exports.main = async (event) => {
 
     try {
       
-        const result = await db.collection('projects')
-            .where({
-                'data.name': new RegExp(keyword.trim(), 'i') 
-            })
-            .get();
+		const dbCmd = db.command;
+		const result = await db.collection('projects')
+			.where(
+				dbCmd.or([
+					{ 'data.name': new RegExp(keyword.trim(), 'i') },
+					{ 'data.description': new RegExp(keyword.trim(), 'i') },
+					{ 'data.category': new RegExp(keyword.trim(), 'i') }
+				])
+			)
+			.get();
+
 
        
         const formattedResults = result.data.map(item => ({
