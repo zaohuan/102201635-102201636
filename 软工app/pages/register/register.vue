@@ -37,44 +37,44 @@ export default {
       errorMessage: ''
     };
   },
- methods: {
-   async register() {
-     if (!this.username || !this.password || !this.confirmPassword) {
-       this.errorMessage = '所有字段不能为空';
-       return;
-     }
-     if (this.password !== this.confirmPassword) {
-       this.errorMessage = '密码和确认密码不一致';
-       return;
-     }
- 
-     try {
-       const response = await uniCloud.callFunction({
-         name: 'registeruser',
-         data: {
-           username: this.username,
-           password: this.password
-         }
-       });
-       
-       console.log('Response:', response); // 打印响应
-       if (response.result.code === 200) {
-         uni.showToast({
-           title: '注册成功',
-           icon: 'success'
-         });
-         uni.navigateTo({
-           url: '/pages/login/login'
-         });
-       } else {
-         this.errorMessage = response.result.message;
-       }
-     } catch (error) {
-       console.error('Registration error:', error); // 打印错误信息
-       this.errorMessage = '注册失败，请重试';
-     }
-   }
- }
+  methods: {
+    async register() {
+      if (!this.username || !this.password || !this.confirmPassword) {
+        this.errorMessage = '所有字段不能为空';
+        return;
+      }
+      if (this.password !== this.confirmPassword) {
+        this.errorMessage = '密码和确认密码不一致';
+        return;
+      }
+
+      try {
+        const response = await uniCloud.callFunction({
+          name: 'registeruser',
+          data: {
+            username: this.username,
+            password: this.password
+          }
+        });
+        
+        console.log('Response:', response); // 打印响应
+        if (response.result.code === 200) {
+          uni.showToast({
+            title: '注册成功',
+            icon: 'success'
+          });
+          uni.navigateTo({
+            url: '/pages/login/login'
+          });
+        } else {
+          this.errorMessage = response.result.message;
+        }
+      } catch (error) {
+        console.error('Registration error:', error); // 打印错误信息
+        this.errorMessage = '注册失败，请重试';
+      }
+    }
+  }
 };
 </script>
 
@@ -92,8 +92,8 @@ export default {
 }
 
 input {
-  width: 100%;
   padding: 10px;
+  justify-content:center;
   margin: 10px 0;
   border: 1px solid #ccc;
 }
