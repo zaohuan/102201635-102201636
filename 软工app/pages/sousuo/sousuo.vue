@@ -8,27 +8,38 @@
                 <text class="biaoti2">搜索结果</text>
             </view>
         </view>
-        <view v-if="results.length > 0">
+
+        <!-- 显示加载状态 -->
+        <view v-if="loading" class="loading">加载中...</view>
+
+        <!-- 显示结果 -->
+        <view v-else-if="results.length > 0">
             <view v-for="(item, index) in results" :key="index" class="result-item">
-                <view>{{ item.data.name }}</view> 
-					<view>{{ item.data.description }}</view>
-						<view>{{ item.data.category }}</view>
-							<view>{{ item.data.scale }}</view>
-								<view>{{ item.data.state }}</view> 
-									<view>{{ item.data.que }}</view>
+                <view>项目名称：{{ item.data.name }}</view> 
+				<!-- 项目简介查询结果只显示部分即可 -->
+                <view>项目简介：{{ item.data.description.length > 15 ? item.data.description.slice(0, 15) + '...' : item.data.description }}</view>
+                <view>项目类别：{{ item.data.category }}</view>
+                <view>项目人数：{{ item.data.scale }}</view>
+                <view>项目状态：{{ item.data.state }}</view> 
+                <view>招募状态：{{ item.data.que }}</view>
             </view>
         </view>
+
+        <!-- 没有结果时的提示 -->
         <view v-else class="nores_box">
             <text class="nores">没有找到相关结果</text>
         </view>
     </view>
 </template>
 
+
+
 <script>
 export default {
     data() {
         return {
-            results: [] 
+            results: [],
+            loading: false
         };
     },
     methods: {
@@ -38,19 +49,23 @@ export default {
             });
         },
         async fetchResults(keyword) { 
+            this.loading = true; // 开始加载
+            
             try {
                 const res = await uniCloud.callFunction({
                     name: 'searchproject', 
                     data: { keyword: keyword }
                 });
-                console.log('云函数返回:', res);
+                //console.log('云函数返回:', res);
                 if (res.result.code === 200) {
                     this.results = res.result.data;
                 } else {
-                    console.error('Search Error:', res.result.message);
+                    //console.error('Search Error:', res.result.message);
                 }
             } catch (error) {
-                console.error('Function call error:', error);
+                //console.error('Function call error:', error);
+            } finally {
+                this.loading = false; // 完成加载
             }
         }
     },
@@ -58,18 +73,23 @@ export default {
         const keyword = this.$route.query.keyword || '';
         console.log('搜索关键词:', decodeURIComponent(keyword));
         if (keyword) {
-            this.fetchResults(decodeURIComponent(keyword)); 
+            this.loading = true; // 在发起请求前设置为加载状态
+                this.fetchResults(decodeURIComponent(keyword)); 
         }
     }
 };
 </script>
 
+
+
 <style>
 	.result-item {
-		margin: 10rpx 10rpx;
+		margin: 25rpx 10rpx;
 		padding: 10rpx;
-		border: 5px solid #ccc;
+		border: 1px solid #ccc;
 		border-radius: 15px;
+		background-color: #ffffff;
+
 	}
 	.box2 {
 		width: 100%;
@@ -105,5 +125,13 @@ export default {
 		font-size: 50rpx;
 		font-weight: 700;
 		color: #999;
+	}
+	.loading {
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    height: 500rpx; 
+	    font-size: 50rpx;
+	    color: #999;
 	}
 </style>

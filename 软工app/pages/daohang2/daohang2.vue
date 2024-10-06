@@ -10,22 +10,85 @@
                 </text>
             </view>
         </view>
-    </view>
+		<!-- 显示加载状态 -->
+		<view v-if="loading" class="loading">加载中...</view>
+		
+		 <!-- 显示结果 -->
+		<view v-else-if="results.length > 0">
+		    <view v-for="(item, index) in results" :key="index" class="result-item">
+		        <view>项目名称：{{ item.data.name }}</view> 
+				<!-- 项目简介查询结果只显示部分即可 -->
+		        <view>项目简介：{{ item.data.description.length > 15 ? item.data.description.slice(0, 15) + '...' : item.data.description }}</view>
+		        <view>项目类别：{{ item.data.category }}</view>
+		        <view>项目人数：{{ item.data.scale }}</view>
+		        <view>项目状态：{{ item.data.state }}</view> 
+		        <view>招募状态：{{ item.data.que }}</view>
+		    </view>
+		</view>
+		
+		<!-- 没有结果时的提示 -->
+		<view v-else class="nores_box">
+		    <text class="nores">没有找到相关结果</text>
+		</view>
+	</view>
 </template>
 
 <script>
 export default {
+    data() {
+        return {
+            results: [],  // 用来存储查询到的项目数据
+            loading: false // 加载状态
+        };
+    },
     methods: {
         goBack() {
             uni.navigateBack({
                 delta: 1
             });
+        },
+        async fetchProjects() {
+            this.loading = true;  // 开始加载
+
+            const db = uniCloud.database();  // 获取数据库实例
+            const collection = db.collection('projects'); 
+            
+            try {
+                // 查询数据库，获取 category 对应 的项目
+                const res = await collection.where({
+                    'data.category': '工程技术'
+                }).get();
+
+                //console.log('数据库查询结果:', res);
+                
+                if (res.result.data && res.result.data.length > 0) {
+                    this.results = res.result.data;  // 设置项目数据
+                } else {
+                    //console.error('没有找到相关项目');
+                }
+            } catch (error) {
+                //console.error('查询错误:', error);
+            } finally {
+                this.loading = false;  // 完成加载
+            }
         }
+    },
+    mounted() {
+        this.fetchProjects();  
     }
-}
+
+};
 </script>
 
 <style>
+	.result-item {
+		margin: 25rpx 10rpx;
+		padding: 10rpx;
+		border: 1px solid #ccc;
+		border-radius: 15px;
+		background-color: #ffffff;
+	
+	}
     .box2{
         width: 100%;
         height: 80px;
@@ -51,4 +114,24 @@ export default {
         font-size: 35rpx;
         color: #000000;
     }
+	.loading {
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    height: 500rpx; 
+	    font-size: 50rpx;
+	    color: #999;
+	}
+	.nores_box {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;	
+		height: 500rpx;
+	}
+	.nores {
+		font-size: 50rpx;
+		font-weight: 700;
+		color: #999;
+	}
 </style>
