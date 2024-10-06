@@ -36,13 +36,19 @@ export default {
         });
         
         if (response.result.code === 200) {
-          // 登录成功，跳转到首页
-          uni.showToast({
-            title: '登录成功',
-            icon: 'success'
-          });
-          uni.switchTab({
-            url: '/pages/tabbar/shouye/shouye'
+          // 登录成功，存储用户信息
+          uni.setStorage({
+            key: 'userInfo', // 存储的键
+            data: response.result.userInfo, // 存储的值
+            success: () => {
+              uni.showToast({
+                title: '登录成功',
+                icon: 'success'
+              });
+              uni.switchTab({
+                url: '/pages/tabbar/shouye/shouye'
+              });
+            }
           });
         } else {
           this.errorMessage = response.result.message;
