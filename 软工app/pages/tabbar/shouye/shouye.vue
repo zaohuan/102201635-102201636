@@ -115,13 +115,23 @@ export default {
 		padding-top: 70px;
 	}
 	.chuang{
+		display: flex;
 		font-size: 25px;
-		padding-left: 105px;
 		padding-top:15px;
+		justify-content: center;
 	}
 	.jiaru{
+		display: flex;
 		font-size: 25px;
-		padding-left: 105px;
 		padding-top:20px;
+		justify-content: center;
+	}
+	button {
+	  width: 100%;
+	  padding: 10px;
+	  background-color: #007aff;
+	  color: #fff;
+	  border: none;
+	  border-radius: 5px;
 	}
 </style>

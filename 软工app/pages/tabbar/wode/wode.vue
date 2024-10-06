@@ -1,72 +1,96 @@
 <template>
-	<view class="container">
-		<view class="box1">
-			<text class="biaoti">
-				我的
-			</text>	
-		</view>
-		<view class="wode">
-			
-			<image class ="wode_image" src="../../../static/logo.png">
-				
-			</image>
-			<view class="info">
-				<text class="name">
-					姓名
-				</text >
-				<text class="xueyuan">
-					学院
-				</text>
-				<text class="id">
-					学号
-				</text>
-			</view>
-			
-		</view>
-		<view class="xiangmu" @click="xiangmu">
-			<text class="xuanxiang">
-				我的项目
-			</text>
-		</view>
-		<view class="xiugai">
-			<text class="xuanxiang">
-				修改个人信息
-			</text>
-		</view>
-		<view class="renzhen">
-			<text class="xuanxiang">
-				身份认证
-			</text>
-		</view>	
-		<view class="shezhi" @click="shezhi">
-			<text class="xuanxiang">
-				设置
-			</text>
-		</view>
-	</view>
+  <view class="container">
+    <view class="box1">
+      <text class="biaoti">我的</text>	
+    </view>
+    <view class="wode">
+      <image class="wode_image" src="../../../static/logo.png"></image>
+      <view class="info">
+        <text class="detailshow">昵称: {{ username }}</text>
+        <text class="detailshow">姓名: {{ realname }}</text>
+        <text class="detailshow">学院: {{ academy }}</text>
+        <text class="detailshow">身份: {{ identity }}</text>
+      </view>
+    </view>
+    <view class="xiangmu" @click="xiangmu">
+      <text class="xuanxiang">我的项目</text>
+    </view>
+    <view class="renzhen">
+      <text class="xuanxiang" @click="renzheng">完善/修改个人信息</text>
+    </view>	
+    <view class="shezhi" @click="shezhi">
+      <text class="xuanxiang">设置</text>
+    </view>
+  </view>
 </template>
 
+
 <script>
-	export default {
-		data() {
-			return {
-				
-			}
-		},
-		methods: {
-			shezhi(){
-				uni.navigateTo({
-					url:"/pages/shezhi/shezhi"
-				})
-			},
-			xiangmu(){
-					uni.navigateTo({
-						url:"/pages/myProject/myProject"
-					})
-				}
-			}
-		
-	}
+export default {
+  data() {
+    return {
+      username: '',  // 用户名
+      realname: '',  // 用户真实姓名
+      academy: '',   // 用户学院
+      identity: ''   // 用户身份
+    };
+  },
+  methods: {
+    shezhi() {
+      uni.navigateTo({
+        url: "/pages/shezhi/shezhi"
+      });
+    },
+    xiangmu() {
+      uni.navigateTo({
+        url: "/pages/myProject/myProject"
+      });
+    },
+    renzheng() {
+      uni.navigateTo({
+        url: "/pages/wanshan/wanshan"
+      });
+    },
+    async getUserData() {
+      try {
+        const res = await uniCloud.callFunction({
+          name: 'getdetailbyusername',
+          data: {
+            username: this.username  
+          }
+        });
+
+        if (res.result.code === 200 && res.result.data) {
+          const userData = res.result.data;
+          // 将查询到的用户信息绑定到data
+          this.realname = userData.realname;
+          this.academy = userData.academy;
+          this.identity = userData.identity;
+        } else {
+          console.error('获取用户信息失败', res.result.message);
+        }
+      } catch (error) {
+        console.error('调用云函数失败', error);
+      }
+    }
+  },
+  mounted() {
+    // 获取本地存储中的用户信息
+    uni.getStorage({
+      key: 'userInfo',
+      success: (res) => {
+        if (res.data) {
+          this.username = res.data.username; // 获取用户名
+          this.getUserData();  // 调用方法获取其他信息
+        }
+      },
+      fail: () => {
+        console.error('获取本地用户信息失败');
+      }
+    });
+  }
+};
+
 </script>
 
 <style>
@@ -80,8 +104,6 @@
 		background: #FFFFFF;
 		display: flex;
 		
-		
-		
 	}
 	
 	.biaoti{
@@ -92,13 +114,6 @@
 		padding-bottom:25px;
 	}
 	
-	.image1{
-		
-		width: 360px;
-		height: 166px;
-		padding-left: 15px;
-		padding-top:15px;
-	}
 	.touxiang{
 		position: absolute;
 	}
@@ -108,38 +123,27 @@
 		margin-top: 20px;
 		margin-left:15px;
 		background-color: #FFFFFF;
-		width:360px;
+		width:380px;
 		height: 166px;
 		border-radius:50px;
 	}
 	.wode_image{
-		padding-left: 44px;
+		padding-left: 15px;
 		padding-top: 42px;
 		width:80px;
 		height: 80px;
 	}
 	.info{
-		width: 80px;
+		width: 250px;
 		height: 80px;
-		padding-left: 50px;
+		padding-left: 20px;
 		padding-top: 15px;
 		display: flex;
 		flex-direction: column;
 	}
-	.name{
+	.detailshow{
 		font-size: 20px;
-		padding-left: 10px;
-		padding-top: 10px;
-	}
-	.xueyuan{
-		font-size: 20px;
-		padding-left: 10px;
-		padding-top: 15px;
-	}
-	.id{
-		font-size: 20px;
-		padding-left: 10px;
-		padding-top: 15px;
+		padding: 5px;
 	}
 	.xiangmu{
 		background-color: #FFFFFF;
@@ -150,17 +154,6 @@
 		height:50px;
 		display: flex;
 		justify-content: center;
-	}
-	.xiugai{
-		background-color: #FFFFFF;
-		border-radius: 50px;
-		margin-top: 40px;
-		margin-left: 30px;
-		width:330px;
-		height:50px;
-		display: flex;
-		justify-content: center;
-		
 	}
 	.renzhen{
 		background-color: #FFFFFF;

@@ -133,18 +133,19 @@ export default {
   margin-bottom: 15px;
 }
 input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-button {
-  background-color: #007AFF;
-  color: white;
   padding: 10px;
+  justify-content:center;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007aff;
+  color: #fff;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  border-radius: 5px;
 }
 .picker {
   width: 100%;
