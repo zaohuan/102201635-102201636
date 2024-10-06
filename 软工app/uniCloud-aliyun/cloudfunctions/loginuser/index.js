@@ -11,24 +11,23 @@ exports.main = async (event, context) => {
 
 		// 查询用户
 		const user = await db.collection('users').where({
-		username: username,
-		password: hashedPassword // 使用加密后的密码进行比较
-	}).get();
+			username: username,
+			password: hashedPassword // 使用加密后的密码进行比较
+		}).get();
 
-    if (user.data.length > 0) {
-		return {
-			code: 200,
-			message: '登录成功'
-		};
-    } 
-	else {
-		return {
-			code: 401,
-			message: '用户名或密码错误'
+		if (user.data.length > 0) {
+			return {
+				code: 200,
+				message: '登录成功',
+				userInfo: user.data[0] // 返回用户信息
+			};
+		} else {
+			return {
+				code: 401,
+				message: '用户名或密码错误'
 			};
 		}
-	}
-	catch (error) {
+	} catch (error) {
 		console.error('Error during login:', error);
 		return { code: 500, message: '服务器错误，请重试' };
 	}
