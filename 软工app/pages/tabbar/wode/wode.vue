@@ -1,7 +1,7 @@
 <template>
   <view class="container">
     <view class="box1">
-      <text class="biaoti">我的</text>	
+      <text class="biaoti">我的</text>
     </view>
     <view class="wode">
       <image class="wode_image" src="../../../static/logo.png"></image>
@@ -12,27 +12,28 @@
         <text class="detailshow">身份: {{ identity }}</text>
       </view>
     </view>
-    <view class="xiangmu" @click="xiangmu">
-      <text class="xuanxiang">我的项目</text>
-    </view>
-    <view class="renzhen">
-      <text class="xuanxiang" @click="renzheng">完善/修改个人信息</text>
-    </view>	
-    <view class="shezhi" @click="shezhi">
-      <text class="xuanxiang">设置</text>
+    <view class="options">
+      <view class="xiangmu" @click="xiangmu">
+        <text class="xuanxiang">我的项目</text>
+      </view>
+      <view class="renzhen" @click="renzheng">
+        <text class="xuanxiang">完善/修改个人信息</text>
+      </view>  
+      <view class="shezhi" @click="shezhi">
+        <text class="xuanxiang">设置</text>
+      </view>
     </view>
   </view>
 </template>
-
 
 <script>
 export default {
   data() {
     return {
-      username: '',  // 用户名
-      realname: '',  // 用户真实姓名
-      academy: '',   // 用户学院
-      identity: ''   // 用户身份
+      username: '',  
+      realname: '',  
+      academy: '',   
+      identity: ''   
     };
   },
   methods: {
@@ -62,7 +63,6 @@ export default {
 
         if (res.result.code === 200 && res.result.data) {
           const userData = res.result.data;
-          // 将查询到的用户信息绑定到data
           this.realname = userData.realname;
           this.academy = userData.academy;
           this.identity = userData.identity;
@@ -74,14 +74,13 @@ export default {
       }
     }
   },
-  mounted() {
-    // 获取本地存储中的用户信息
+  onShow() {
     uni.getStorage({
       key: 'userInfo',
       success: (res) => {
         if (res.data) {
-          this.username = res.data.username; // 获取用户名
-          this.getUserData();  // 调用方法获取其他信息
+          this.username = res.data.username; 
+          this.getUserData();  
         }
       },
       fail: () => {
@@ -90,93 +89,82 @@ export default {
     });
   }
 };
-
 </script>
 
 <style>
-	.container{
+	.container {
 		display: flex;
 		flex-direction: column;
+		align-items: center;
 	}
-	.box1{
+
+	.box1 {
 		width: 100%;
 		height: 120px;
 		background: #FFFFFF;
 		display: flex;
-		
 	}
-	
-	.biaoti{
-		font-size: 55rpx;
-		font-weight: 700;
-		padding-left: 25px;
-		padding-top: 60px;
-		padding-bottom:25px;
-	}
-	
-	.touxiang{
-		position: absolute;
-	}
-	.wode{
+
+    .biaoti{
+        font-size: 55rpx;
+        font-weight: 700;
+        padding-left: 10%;
+        padding-top: 15%;
+        padding-bottom:25px;
+		white-space: nowrap;
+    }
+
+	.wode {
 		display: flex;
 		flex-direction: row;
 		margin-top: 20px;
-		margin-left:15px;
 		background-color: #FFFFFF;
-		width:380px;
+		width: calc(100% - 40px);
 		height: 166px;
-		border-radius:50px;
+		border-radius: 50px;
+		align-items: center;
 	}
-	.wode_image{
+
+	.wode_image {
 		padding-left: 15px;
-		padding-top: 42px;
-		width:80px;
+		width: 80px;
 		height: 80px;
 	}
-	.info{
+
+	.info {
 		width: 250px;
-		height: 80px;
 		padding-left: 20px;
-		padding-top: 15px;
 		display: flex;
 		flex-direction: column;
 	}
-	.detailshow{
+
+	.detailshow {
 		font-size: 20px;
 		padding: 5px;
 	}
-	.xiangmu{
+
+	.options {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-top: 40px;
+		width: 100%;
+		padding: 0 20px;
+	}
+
+	.xiangmu,
+	.renzhen,
+	.shezhi {
 		background-color: #FFFFFF;
 		border-radius: 50px;
-		margin-top: 40px;
-		margin-left: 30px;
-		width:330px;
-		height:50px;
+		margin: 10px 0;
+		width: calc(100% - 40px);
+		height: 50px;
 		display: flex;
 		justify-content: center;
 	}
-	.renzhen{
-		background-color: #FFFFFF;
-		border-radius: 50px;
-		margin-top: 40px;
-		margin-left: 30px;
-		width:330px;
-		height:50px;
-		display: flex;
-		justify-content: center;
-	}
-	.shezhi{
-		background-color: #FFFFFF;
-		border-radius: 50px;
-		margin-top: 40px;
-		margin-left: 30px;
-		width:330px;
-		height:50px;
-		display: flex;
-		justify-content: center;
-		
-	}
-	.xuanxiang{
+
+	.xuanxiang {
 		font-size: 20px;
 		padding-top: 10px;
 	}
