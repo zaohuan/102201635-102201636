@@ -45,11 +45,14 @@ export default {
 
         if (response.result.code === 200) {
           // 登录成功，存储用户信息
+		  uni.setStorage({
+			  key: 'username', // 存储的键
+			  data: this.username, // 存储的值
+		  });
           uni.setStorage({
             key: 'userInfo',
             data: response.result.userInfo,
-			key: 'username', // 存储的键
-			data: this.username, // 存储的值
+			
             success: () => {
               uni.showToast({
                 title: '登录成功',
