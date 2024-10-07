@@ -49,7 +49,7 @@ export default {
       projectName: '',
       projectDescription: '',
       projectScale: '',
-      categories: ['自然科学', '工程技术', '医学健康', '社会科学', '人文艺术', '交叉学科'],
+      categories: ['自然科学', '工程技术', '医学健康', '社会科学', '人文历史', '交叉学科'],
       states: ['准备中', '进行中', '已完结'],
       ques: ['是', '否'],
       selectedCategory: undefined,
@@ -110,6 +110,9 @@ export default {
           title: '项目修改成功',
           icon: 'success'
         });
+		uni.navigateTo({
+		    url: '/pages/myProject/myProject' // 修改成功后跳转到 myproject 页面
+		});
         // uni.navigateBack(); // 返回上一页
       } catch (error) {
         console.error(error);
@@ -133,7 +136,6 @@ export default {
 </script>
 
 <style>
-/* 这里可以重复你之前的样式 */
 .container {
   padding: 20px;
 }
@@ -141,10 +143,10 @@ export default {
   margin-bottom: 15px;
 }
 input {
-  width: 100%;
-  padding: 8px;
+  padding: 10px;
+  justify-content: center;
+  margin: 10px 0;
   border: 1px solid #ccc;
-  border-radius: 4px;
 }
 button {
   background-color: #007AFF;
@@ -155,21 +157,21 @@ button {
   cursor: pointer;
 }
 .picker {
-  width: 100%;
+  justify-content: center;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #f9f9f9;
   text-align: center;
 }
-.box2 {
-  width: 100%;
-  height: 80px;
-  background: #FFFFFF;
-  display: flex;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  justify-content: center;
-  align-items: center;
+.box3{
+    width: 100%;
+    height: 80px;
+    background: #FFFFFF;
+    display: flex;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
 }
 .back-btn {
   position: absolute;
