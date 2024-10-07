@@ -1,120 +1,81 @@
 <template>
 	<view class="container">
-		<view class="box1">
-			<text class="biaoti">
-				我的项目
-			</text>	
-			<text class="fanhui" @click="fanhui">
-				返回
-			</text>
+		<view class="box3">
+			<view class="back-btn" @click="fanhui">
+				<text class="back-icon">返回</text>
+			</view>
+			<text class="biaoti2">我的项目</text>
 		</view>
 		<uni-collapse v-if="createdProjects.length > 0">
 		    <uni-collapse-item :show-animation="true" title="我创建的项目">
 		        <uni-list :border="true" v-if="createdProjects.length > 0">
-		            <uni-list-item 
-		                v-for="(project, index) in createdProjects" 
-		                :key="index"
-		                :title="project.data.name" 
-		                :note="project.data.description" 
-						clickable="true" 
+					<uni-list-item 
+						v-for="(project, index) in createdProjects" 
+						:key="index"
+						:title="project.data.name" 
+						:note="getShortDescription(project.data.description)" 
+						:clickable="true" 
 						@click="navigateToDetails(project._id)">
-		            </uni-list-item>
+					</uni-list-item>
 		        </uni-list>
 		    </uni-collapse-item>
-		
-		   <!-- <uni-collapse-item :show-animation="true" title="我加入的项目">
-		        <uni-list :border="true">
-		            <uni-list-item 
-		                v-for="(project, index) in joinedProjects" 
-		                :key="index" 
-		                :title="project.projectName" 
-		                :note="project.projectDetails"
-		                clickable="true">
-		            </uni-list-item>
-		        </uni-list>
-		    </uni-collapse-item> -->
 		</uni-collapse>
-		
 	</view>	
-			
-			
-				
-			
-			
-	
-
 </template>
+
 
 <script>
 export default {
   data() {
       return {
           createdProjects: [], // 存储我创建的项目
-          joinedProjects: [] // 存储我加入的项目
       };
-  },
- 
-  mounted() {
-      
   },
   onShow(){
 	  this.getProjects();
   },
   methods: {
-		  async getProjects() {
-		      const db = uniCloud.database();
-		      
-		      
-		      const usernameRes = await uni.getStorage({
-		          key: 'username'
-		      });
-		      const username = usernameRes.data; 
-		      
-		      console.log('查询时的用户名', username); 
-		  
-		      
-		  
-		      //确保用户名不为空
-		      if (username) {
-		          // 查询我创建的项目
-		          const createdRes = await db.collection('projects')
-		              .where({
-		                  'data.username': username // 使用转换为字符串的 username
-		              })
-		              .get();
-		          
-		          // 把查询到的项目数据赋值给 createdProjects
-		          this.createdProjects = createdRes.result.data;
-		          
-		          // 输出查询到的项目数据，检查是否获取到项目
-		          console.log('查询到的项目:', this.createdProjects);
-		      } else {
-		          console.error('未获取到用户名');
-		      }
-		  },
-  
-          // // 假设加入的项目通过项目表中的 "members" 字段存储成员信息
-          // const joinedRes = await db.collection('projects')
-          //     .where({
-          //         members: userID // 根据成员列表中的 userID 查询加入的项目
-          //     })
-          //     .get();
-          // this.joinedProjects = joinedRes.result.data;
+    async getProjects() {
+      const db = uniCloud.database();
       
-		navigateToDetails(projectId) {
-		      uni.navigateTo({
-		        url: `/pages/projectDetails/projectDetails?id=${projectId}` // 传递项目的 id
-		      });
-		    },
-      // 返回按钮
-      fanhui() {
-          uni.switchTab({
-              url: "/pages/tabbar/wode/wode"
-          });
+      const usernameRes = await uni.getStorage({
+        key: 'username'
+      });
+      const username = usernameRes.data; 
+      
+      if (username) {
+        const createdRes = await db.collection('projects')
+          .where({
+              'data.username': username 
+          })
+          .get();
+          
+        this.createdProjects = createdRes.result.data;
+      } else {
+        console.error('未获取到用户名');
       }
+    },
+    getShortDescription(description) {
+      if (description.length > 15) {
+        return description.substring(0, 15) + '...';
+      } else {
+        return description;
+      }
+    },
+    navigateToDetails(projectId) {
+      uni.navigateTo({
+        url: `/pages/projectDetails/projectDetails?id=${projectId}`
+      });
+    },
+    fanhui() {
+      uni.switchTab({
+        url: "/pages/tabbar/wode/wode"
+      });
+    }
   }
 };
 </script>
+
 
 <style>
 .container{
@@ -122,23 +83,29 @@ export default {
 		display: flex;
 		flex-direction: column;
 	}
-.box1{
-		width: 100%;
-		height: 120px;
-		background: #FFFFFF;
-		display: flex;
-		
-		
-		
-	}
-	
-.biaoti{
-		font-size: 55rpx;
-		font-weight: 700;
-		padding-left: 25px;
-		padding-top: 60px;
-		padding-bottom:25px;
-	}
+.box3{
+    width: 100%;
+    height: 80px;
+    background: #FFFFFF;
+    display: flex;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+}
+.biaoti2 {
+  font-size: 55rpx;
+  font-weight: 700;
+}
+.back-btn {
+  position: absolute;
+  left: 15px;
+  display: flex;
+  align-items: center;
+}
+.back-icon {
+  font-size: 35rpx;
+  color: #000000;
+}
 .details{
 	margin-top: 20px;
 	display: flex;
