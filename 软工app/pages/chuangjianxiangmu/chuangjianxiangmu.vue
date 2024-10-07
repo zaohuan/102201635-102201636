@@ -10,33 +10,32 @@
     </view>
     <view class="form-item">
       <text>项目分类：</text>
-       <picker v-model="selectedCategory" :range="categories" @change="onCategoryChange">
-              <view class="picker">
-                {{ categories[selectedCategory] || '请选择项目分类' }}
-              </view>
-        </picker>
+      <picker :value="selectedCategory" :range="categories" @change="onCategoryChange">
+        <view class="picker">
+          {{ categories[selectedCategory] || '请选择项目分类' }}
+        </view>
+      </picker>
     </view>
     <view class="form-item">
       <text>项目人数规模：</text>
       <input v-model="projectScale" placeholder="请输入目前参与项目的人数" />
     </view>
-	<view class="form-item">
-	  <text>是否缺人：</text>
-	  <picker v-model="selectedQue" :range="ques" @change="onQueChange">
-	         <view class="picker">
-	           {{ ques[selectedQue] || '请选择项目状态' }}
-	         </view>
-	   </picker>
-	</view>
-	<view class="form-item">
-	  <text>项目状态：</text>
-	  <picker v-model="selectedState" :range="states" @change="onStateChange">
-	         <view class="picker">
-	           {{ states[selectedState] || '请选择项目状态' }}
-	         </view>
-	   </picker>
-	</view>
-	
+    <view class="form-item">
+      <text>是否缺人：</text>
+      <picker :value="selectedQue" :range="ques" @change="onQueChange">
+        <view class="picker">
+          {{ ques[selectedQue] || '请选择项目状态' }}
+        </view>
+      </picker>
+    </view>
+    <view class="form-item">
+      <text>项目状态：</text>
+      <picker :value="selectedState" :range="states" @change="onStateChange">
+        <view class="picker">
+          {{ states[selectedState] || '请选择项目状态' }}
+        </view>
+      </picker>
+    </view>
     <button @click="createProject">创建项目</button>
   </view>
 </template>
@@ -47,26 +46,31 @@ export default {
     return {
       projectName: '',
       projectDescription: '',
-      projectCategory: '',
       projectScale: '',
-	  categories: ['自然科学', '工程技术', '医学健康', '社会科学', '人文艺术', '交叉学科'], // 限定六个类别
-	  states:['准备中','进行中','已完结'],
-	  ques:['是','否'],
-	  projectState: '',
+      selectedCategory: 0, 
+      selectedQue: 0,
+      selectedState: 0,
+      categories: ['自然科学', '工程技术', '医学健康', '社会科学', '人文艺术', '交叉学科'],
+      states: ['准备中', '进行中', '已完结'],
+      ques: ['是', '否'],
     };
   },
   methods: {
-	onCategoryChange(e) {
-	        this.selectedCategory = e.detail.value; // 更新选择的类别
-	    },
-	onStateChange(e) {
-		    this.selectedState = e.detail.value; // 更新选择的类别
-		},
-	onQueChange(e) {
-		    this.selectedQue = e.detail.value; // 更新选择的类别
-		},	
+    onCategoryChange(e) {
+      this.selectedCategory = e.detail.value; // 更新选择的类别
+    },
+    onStateChange(e) {
+      this.selectedState = e.detail.value; // 更新选择的状态
+    },
+    onQueChange(e) {
+      this.selectedQue = e.detail.value; // 更新选择的是否缺人
+    },
     async createProject() {
-      if (!this.projectName || !this.projectDescription || !this.selectedCategory && this.selectedCategory !== 0 || !this.projectScale ||!this.selectedState && this.selectedState !==0 ||!this.selectedQue && this.selectedQue !==0) {
+      if (!this.projectName || !this.projectDescription || 
+          !this.selectedCategory && this.selectedCategory !== 0 || 
+          !this.projectScale || 
+          !this.selectedState && this.selectedState !== 0 || 
+          !this.selectedQue && this.selectedQue !== 0) {
         uni.showToast({
           title: '请填写所有字段',
           icon: 'none'
@@ -79,30 +83,29 @@ export default {
         description: this.projectDescription,
         category: this.categories[this.selectedCategory],
         scale: this.projectScale,
-		state:this.states[this.selectedState],
-		que:this.ques[this.selectedQue],
+        state: this.states[this.selectedState],
+        que: this.ques[this.selectedQue],
       };
 
       try {
         await uniCloud.callFunction({
-          name: 'createProject', // 云函数名称
+          name: 'createProject',
           data: projectData
         });
         uni.showToast({
           title: '项目创建成功',
           icon: 'success'
         });
-		 uni.setStorage({
-		    key: 'projectData', // 存储的键
-		    data: projectData, // 存储的值
-		    success: () => {
-		      // 跳转到 ProjectList 页面
-		      uni.navigateTo({
-		        url: '/pages/projectdetail/projectdetail' // 确保路径正确
-		      });
-		    }
-		  });
-	
+        uni.setStorage({
+          key: 'projectData',
+          data: projectData,
+          success: () => {
+            uni.navigateTo({
+              url: '/pages/projectdetail/projectdetail'
+            });
+          }
+        });
+
         // 重置表单
         this.resetForm();
       } catch (error) {
@@ -116,10 +119,10 @@ export default {
     resetForm() {
       this.projectName = '';
       this.projectDescription = '';
-      this.projectCategory = 0;
       this.projectScale = '';
-	  this.projectState =0;
-	  this.projectQue =0;
+      this.selectedCategory = 0;
+      this.selectedState = 0;
+      this.selectedQue = 0;
     }
   }
 };
@@ -134,7 +137,7 @@ export default {
 }
 input {
   padding: 10px;
-  justify-content:center;
+  justify-content: center;
   margin: 10px 0;
   border: 1px solid #ccc;
 }
@@ -148,7 +151,7 @@ button {
   border-radius: 5px;
 }
 .picker {
-  width: 100%;
+  justify-content: center;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
