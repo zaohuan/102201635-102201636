@@ -1,64 +1,66 @@
 <template>
   <view class="container">
-    <view class="box1">
-      <text class="biaoti">{{ project.data.name }}</text>
-      <view class="details">
-        <text>描述: {{ project.data.description }}</text>
-        <text>分类: {{ project.data.category }}</text>
-        <text>规模: {{ project.data.scale }}</text>
-        <text>状态: {{ project.data.state }}</text>
-        <text>是否缺人: {{ project.data.que }}</text>
+    <!-- 显示加载状态 -->
+    <view v-if="loading" class="loading">加载中...</view>
+
+    <!-- 显示项目详情 -->
+    <view v-else>
+      <view class="boxx">
+        <text class="biaotii">{{ project?.data?.name || '未找到项目名称' }}</text>
+        <view class="details" v-if="project && project.data">
+          <text>描述: {{ project.data.description }}</text>
+          <text>分类: {{ project.data.category }}</text>
+          <text>规模: {{ project.data.scale }}</text>
+          <text>状态: {{ project.data.state }}</text>
+          <text>是否缺人: {{ project.data.que }}</text>
+        </view>
       </view>
-    </view>
-    <view class="button-container">
-      <button @click="editProject(project._id)">修改项目</button>
-      <button>加入项目</button>
+      <view class="button-container">
+        <button @click="editProject(project._id)">修改项目</button>
+        <button>加入项目</button>
+      </view>
     </view>
   </view>
 </template>
-
-
-
 <script>
 export default {
   data() {
     return {
-      project: {} // 存储项目的详细信息
+      project: null, // 存储项目的详细信息
+      loading: false // 控制加载中状态
     };
   },
-
+  
   onLoad(options) {
-    const projectId = options.id; // 获取传递过来的项目 ID
-    this.getProjectDetails(projectId);
+    const projectId = options.id; 
+    if (projectId) {
+      this.getProjectDetails(projectId); 
+    } else {
+      console.error('项目 ID 未传递');
+    }
   },
-	onShow() {
-	    const projectId = this.$options.route.params.id; // 获取项目 ID
-	    if (projectId) {
-			console.log('id',projectId)
-	        this.getProjectDetails(projectId);
-	    } else {
-	        console.error('项目 ID 未传递');
-	    }
-	},
-
 
   methods: {
-	  editProject(projectId){
-		  console.log('id',projectId);
-		  uni.navigateTo({
-			   url: `/pages/editprojectDetails/editprojectDetails?id=${projectId}`
-		  	
-		  })
-	  },
+    editProject(projectId) {
+      uni.navigateTo({
+        url: `/pages/editprojectDetails/editprojectDetails?id=${projectId}`
+      });
+    },
     // 获取项目详情
     async getProjectDetails(id) {
+      this.loading = true; // 开始加载
       const db = uniCloud.database();
-	  
-      const res = await db.collection('projects').doc(id).get(); // 根据项目 ID 查询详情
-      if (res.result.data.length > 0) {
-        this.project = res.result.data[0]; // 将项目详情赋值给 project 变量
-      } else {
-        console.error('未找到该项目');
+      try {
+        const res = await db.collection('projects').doc(id).get(); 
+        if (res.result.data.length > 0) {
+          this.project = res.result.data[0]; 
+        } else {
+          console.error('未找到该项目');
+        }
+      } catch (error) {
+        console.error('获取项目详情时出错', error);
+      } finally {
+        this.loading = false; // 完成加载
       }
     }
   }
@@ -72,7 +74,7 @@ export default {
   flex-direction: column;
 }
 
-.box1 {
+.boxx {
   background: #f9f9f9;
   padding: 15px;
   border-radius: 8px;
@@ -80,7 +82,7 @@ export default {
   flex-direction: column;
 }
 
-.biaoti {
+.biaotii {
   font-size: 24px;
   font-weight: bold;
 }
@@ -92,21 +94,31 @@ export default {
 .details text {
   display: block;
   margin-bottom: 8px;
+  word-wrap: break-word;
 }
 
 .button-container {
-  margin-top: 20px; /* 给按钮一个顶部间距 */
+  margin-top: 20px;
   display: flex;
-  flex-direction: column; /* 按钮垂直排列 */
+  flex-direction: column;
 }
 
 button {
-  margin-bottom: 10px; /* 按钮之间的间距 */
-  background-color: #007AFF; /* 按钮背景颜色 */
-  color: white; /* 按钮文字颜色 */
-  padding: 10px; /* 按钮内边距 */
-  border: none; /* 去掉按钮边框 */
-  border-radius: 4px; /* 按钮圆角 */
-  cursor: pointer; /* 鼠标悬停时的指针样式 */
- }
+  margin-bottom: 10px;
+  background-color: #007AFF;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500rpx;
+  font-size: 50rpx;
+  color: #999;
+}
 </style>
