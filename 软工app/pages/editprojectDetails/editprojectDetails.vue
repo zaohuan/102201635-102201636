@@ -1,14 +1,20 @@
 <template>
-  
   <view class="container">
     <view class="form-item">
       <text>项目名称：</text>
       <input v-model="projectName" placeholder="请输入项目名称" />
     </view>
+    
     <view class="form-item">
       <text>项目简介：</text>
-      <input v-model="projectDescription" placeholder="请输入项目简介" />
+      <uni-easyinput 
+        type="textarea" 
+        autoHeight 
+        v-model="projectDescription" 
+        placeholder="请输入项目简介" 
+      ></uni-easyinput>
     </view>
+    
     <view class="form-item">
       <text>项目分类：</text>
       <picker value="selectedCategory" :range="categories" @change="onCategoryChange">
@@ -17,10 +23,12 @@
         </view>
       </picker>
     </view>
+    
     <view class="form-item">
       <text>项目人数规模：</text>
       <input v-model="projectScale" placeholder="请输入目前参与项目的人数" />
     </view>
+    
     <view class="form-item">
       <text>是否缺人：</text>
       <picker value="selectedQue" :range="ques" @change="onQueChange">
@@ -29,6 +37,7 @@
         </view>
       </picker>
     </view>
+    
     <view class="form-item">
       <text>项目状态：</text>
       <picker value="selectedState" :range="states" @change="onStateChange">
@@ -68,7 +77,6 @@ export default {
         name: 'getProjectDetails',
         data: { id }
       });
-	  console.log('id',id);
       if (res.result) {
         const project = res.result;
         this.projectName = project.data.name;
@@ -79,9 +87,6 @@ export default {
         this.selectedQue = this.ques.indexOf(project.data.que);
       }
     },
-    // goBack() {
-    //   uni.navigateBack({ delta: 1 });
-    // },
     async updateProject() {
       if (!this.projectName || !this.projectDescription || this.selectedCategory === undefined || !this.projectScale || this.selectedState === undefined || this.selectedQue === undefined) {
         uni.showToast({
@@ -110,10 +115,9 @@ export default {
           title: '项目修改成功',
           icon: 'success'
         });
-		uni.navigateTo({
-		    url: '/pages/myProject/myProject' // 修改成功后跳转到 myproject 页面
-		});
-        // uni.navigateBack(); // 返回上一页
+        uni.navigateTo({
+          url: '/pages/myProject/myProject' // 修改成功后跳转到 myproject 页面
+        });
       } catch (error) {
         console.error(error);
         uni.showToast({
@@ -163,28 +167,5 @@ button {
   border-radius: 4px;
   background-color: #f9f9f9;
   text-align: center;
-}
-.box3{
-    width: 100%;
-    height: 80px;
-    background: #FFFFFF;
-    display: flex;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    justify-content: center;
-    align-items: center;
-}
-.back-btn {
-  position: absolute;
-  left: 15px;
-  display: flex;
-  align-items: center;
-}
-.back-icon {
-  font-size: 35rpx;
-  color: #000000;
-}
-.biaoti2 {
-  font-size: 55rpx;
-  font-weight: 700;
 }
 </style>
