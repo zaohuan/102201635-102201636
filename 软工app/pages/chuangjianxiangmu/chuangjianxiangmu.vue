@@ -51,7 +51,10 @@ export default {
       projectDescription: '',
       projectCategory: '',
       projectScale: '',
-	  categories: ['自然科学', '工程技术', '医学健康', '社会科学', '人文艺术', '交叉学科'], // 限定六个类别
+	  selectedCategory:null,
+	  selectedState:null,
+	  selectedQue:null,
+	  categories: ['自然科学', '工程技术', '医学健康', '社会科学', '人文历史', '交叉学科'], // 限定六个类别
 	  states:['准备中','进行中','已完结'],
 	  ques:['是','否'],
 	  projectState: '',
