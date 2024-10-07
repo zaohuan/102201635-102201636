@@ -7,8 +7,7 @@
 		  <text class="biaoti2">项目详情</text>
 		</view>
 		
-		<view class="details" v-if="projectData">
-			<uni-section class="mb-10" title="基础用法" sub-title="副标题"></uni-section>
+		<view class="ddetails" v-if="projectData">
 			<text>项目名称：{{ projectData.name }}</text>
 			<text>项目简介：{{ projectData.description }}</text>
 			<text>项目分类：{{ projectData.category }}</text>
@@ -59,38 +58,33 @@ export default {
 </script>
 
 <style>
-.container{
-		width:100%;
+	.container{
+			width:100%;
+			display: flex;
+			flex-direction: column;
+		}
+	.box1{
+			width: 100%;
+			height: 120px;
+			background: #FFFFFF;
+			display: flex;
+			
+		}
+		
+	.biaoti{
+			font-size: 55rpx;
+			font-weight: 700;
+			padding-left: 25px;
+			padding-top: 60px;
+			padding-bottom:25px;
+		}
+	.ddetails{
+		margin:20px;
 		display: flex;
 		flex-direction: column;
+		word-wrap: break-word;
 	}
-.box1{
-		width: 100%;
-		height: 120px;
-		background: #FFFFFF;
-		display: flex;
-		
-		
-		
-	}
-	
-.biaoti{
-		font-size: 55rpx;
-		font-weight: 700;
-		padding-left: 25px;
-		padding-top: 60px;
-		padding-bottom:25px;
-	}
-.details{
-	margin-top: 20px;
-	display: flex;
-	flex-direction: column;
-}
-.fanhui{
-		font-size: 20px;
-		padding-top: 70px;
-		padding-left: 190px;
-	}
+
 	.back-btn {
 	    position: absolute;
 	    left: 15px;
