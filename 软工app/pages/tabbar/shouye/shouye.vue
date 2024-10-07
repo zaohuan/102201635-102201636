@@ -3,17 +3,15 @@
         <view>
             <view class="box1">
                 <text class="biaoti">首页</text>
-				<image class="jia" src="../../../static/jia.png" @tap="toggleView">
-				</image>
+                <image class="jia" src="../../../static/jia.png" @tap="toggleView"></image>
             </view>
-			<cover-view v-if="showView" style="z-index: 999; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center;">
-			  <!-- 内容区域 -->
-			  <view style="align-content: center; display: flex; flex-direction: column; width: 80%; height: 200px; background-color: #fff; padding: 20px; border-radius: 10px;">
-			    <text class="chuang" @click="chuang">创建项目</text>
-				<text class="jiaru">加入项目</text>
-			    <button @tap="toggleView" style="margin-top: 40px;">关闭</button>
-			  </view>
-			</cover-view>
+            <view v-if="showView" class="menu-overlay">
+                <view class="menu-content">
+                    <text class="chuang" @tap="chuang">创建项目</text>
+                    <text class="jiaru">加入项目</text>
+                    <button @tap="toggleView">关闭</button>
+                </view>
+            </view>
             <uni-search-bar
                 class="uni-mt-10"
                 radius="5"
@@ -42,23 +40,23 @@ export default {
     data() {
         return {
             searchKeyword: '', 
-			showView: false
+            showView: false
         };
     },
     methods: {
-		toggleView() {
-		     this.showView = !this.showView;
-		   },
-		   chuang(){
-		   	uni.navigateTo({
-		   		url:"/pages/chuangjianxiangmu/chuangjianxiangmu"
-		   	})
-		   },
+        toggleView() {
+            this.showView = !this.showView;
+            console.log('Toggle View:', this.showView);
+        },
+        chuang() {
+            uni.navigateTo({
+                url: "/pages/chuangjianxiangmu/chuangjianxiangmu"
+            });
+        },
         search() {
-			
             if (this.searchKeyword.trim()) {
                 uni.navigateTo({
-                    url: `/pages/sousuo/sousuo?keyword=${encodeURIComponent(this.searchKeyword)}` 
+                    url: `/pages/sousuo/sousuo?keyword=${encodeURIComponent(this.searchKeyword)}`
                 });
             } else {
                 uni.showToast({
@@ -76,6 +74,27 @@ export default {
 </script>
 
 <style>
+    .menu-overlay {
+        z-index: 1000;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .menu-content {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        height: 200px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+    }
     .tuijian_box2 {
         display: flex;
         width: 100%;
@@ -104,34 +123,37 @@ export default {
     .biaoti {
         font-size: 55rpx;
         font-weight: 700;
-        padding-left: 25px;
-        padding-top: 60px;
+        padding-left: 10%;
+        padding-top: 15%;
         padding-bottom: 25px;
+        white-space: nowrap;
     }
-	.jia{
-		width: 23px;
-		height: 23px;
-		padding-left: 245px;
-		padding-top: 70px;
-	}
-	.chuang{
-		display: flex;
-		font-size: 25px;
-		padding-top:15px;
-		justify-content: center;
-	}
-	.jiaru{
-		display: flex;
-		font-size: 25px;
-		padding-top:20px;
-		justify-content: center;
-	}
-	button {
-	  width: 100%;
-	  padding: 10px;
-	  background-color: #007aff;
-	  color: #fff;
-	  border: none;
-	  border-radius: 5px;
-	}
+
+    .jia {
+        width: 23px;
+        height: 23px;
+        padding-left: 60%;
+        padding-top: 17%;
+    }
+
+    .chuang {
+        font-size: 25px;
+        padding-top: 15px;
+        text-align: center;
+    }
+
+    .jiaru {
+        font-size: 25px;
+        padding-top: 20px;
+        text-align: center;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007aff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+    }
 </style>
