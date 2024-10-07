@@ -17,7 +17,7 @@
       </view>
       <view class="button-container">
         <button @click="editProject(project._id)">修改项目</button>
-        <button>加入项目</button>
+        <button @click="confirmDeleteProject">删除项目</button>
       </view>
     </view>
   </view>
@@ -62,7 +62,41 @@ export default {
       } finally {
         this.loading = false; // 完成加载
       }
-    }
+    },
+	// 弹出确认框，用户确认后删除项目
+	    confirmDeleteProject() {
+	      uni.showModal({
+	        title: '删除确认',
+	        content: '确定要删除此项目吗？',
+	        success: (res) => {
+	          if (res.confirm) {
+	            this.deleteProject();
+	          }
+	        }
+	      });
+	    },
+	
+	    // 删除项目
+	    async deleteProject() {
+	      const db = uniCloud.database();
+	      const res = await db.collection('projects').where({
+	        'data.name': this.project.data.name // 根据项目的 name 来删除项目
+	      }).remove();
+	      
+	      if (res.result.deleted === 1) {
+	        uni.showToast({
+	          title: '删除成功',
+	          icon: 'success'
+	        });
+	        uni.navigateBack(); // 返回上一页
+	      } else {
+	        uni.showToast({
+	          title: '删除失败',
+	          icon: 'none'
+	        });
+	      }
+	    }
+	  
   }
 };
 </script>
