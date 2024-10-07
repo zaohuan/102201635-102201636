@@ -127,8 +127,21 @@
 				"navigationBarTitleText" : "",
 				"navigationStyle": "custom"
 			}
-		}
-		
+		},
+		{
+			"path" : "pages/editprojectDetails/editprojectDetails",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/projectDetails/projectDetails",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
 	],
 	// "globalStyle": {
 	// 	"navigationBarTextStyle": "black",
