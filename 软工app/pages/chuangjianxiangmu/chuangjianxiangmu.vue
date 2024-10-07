@@ -12,7 +12,7 @@
     </view>
     <view class="form-item">
       <text>项目分类：</text>
-       <picker v-model="selectedCategory" :range="categories" @change="onCategoryChange">
+       <picker value="selectedCategory" :range="categories" @change="onCategoryChange">
               <view class="picker">
                 {{ categories[selectedCategory] || '请选择项目分类' }}
               </view>
@@ -24,7 +24,7 @@
     </view>
 	<view class="form-item">
 	  <text>是否缺人：</text>
-	  <picker v-model="selectedQue" :range="ques" @change="onQueChange">
+	  <picker value="selectedQue" :range="ques" @change="onQueChange">
 	         <view class="picker">
 	           {{ ques[selectedQue] || '请选择项目状态' }}
 	         </view>
@@ -32,7 +32,7 @@
 	</view>
 	<view class="form-item">
 	  <text>项目状态：</text>
-	  <picker v-model="selectedState" :range="states" @change="onStateChange">
+	  <picker value="selectedState" :range="states" @change="onStateChange">
 	         <view class="picker">
 	           {{ states[selectedState] || '请选择项目状态' }}
 	         </view>
