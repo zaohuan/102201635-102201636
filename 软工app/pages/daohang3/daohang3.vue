@@ -15,7 +15,7 @@
 		
 		 <!-- 显示结果 -->
 		<view v-else-if="results.length > 0" class="results-container">
-		    <view v-for="(item, index) in results" :key="index" class="result-item">
+		    <view v-for="(item, index) in results" :key="index" class="result-item" @click="navigateToDetails(item)">
 		        <view>项目名称：{{ item.data.name }}</view> 
 				<!-- 项目简介查询结果只显示部分即可 -->
 		        <view>项目简介：{{ item.data.description.length > 15 ? item.data.description.slice(0, 15) + '...' : item.data.description }}</view>
@@ -43,9 +43,7 @@ export default {
     },
     methods: {
         goBack() {
-            uni.navigateBack({
-                delta: 1
-            });
+            uni.navigateBack();
         },
         async fetchProjects() {
             this.loading = true;  // 开始加载
@@ -71,7 +69,28 @@ export default {
             } finally {
                 this.loading = false;  // 完成加载
             }
-        }
+        },
+		navigateToDetails(item) {
+					  const projectData = {
+					    name: item.data.name,
+					    description: item.data.description,
+					    category: item.data.category,
+					    scale: item.data.scale,
+					  		state:item.data.state,
+					  		que:item.data.que ,
+					  };
+		        // 异步存储项目信息
+		        uni.setStorage({
+		           key: 'projectData', // 存储的键
+		           data: projectData, // 存储的值
+		           success: () => {
+		             // 跳转到 ProjectList 页面
+		             uni.navigateTo({
+		               url: '/pages/projectdetailfenlei/projectdetailfenlei' // 确保路径正确
+		             });
+		           }
+		         });
+		    }
     },
     mounted() {
         this.fetchProjects();  
