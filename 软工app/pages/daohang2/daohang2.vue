@@ -14,7 +14,7 @@
 		<view v-if="loading" class="loading">加载中...</view>
 		
 		 <!-- 显示结果 -->
-		<view v-else-if="results.length > 0">
+		<view v-else-if="results.length > 0"  class="results-container">
 		    <view v-for="(item, index) in results" :key="index" class="result-item">
 		        <view>项目名称：{{ item.data.name }}</view> 
 				<!-- 项目简介查询结果只显示部分即可 -->
@@ -97,7 +97,9 @@ export default {
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         justify-content: center;
         align-items: center;
-        position: relative; 
+        position: fixed;
+		top: 0;
+		z-index: 1000;
     }
     .biaoti2{
         font-size: 55rpx;
@@ -133,5 +135,8 @@ export default {
 		font-size: 50rpx;
 		font-weight: 700;
 		color: #999;
+	}
+	.results-container {
+	    margin-top: 80px; 
 	}
 </style>
