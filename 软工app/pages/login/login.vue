@@ -3,8 +3,12 @@
     <view class="form">
       <input v-model="username" placeholder="请输入用户名" />
       <input v-model="password" placeholder="请输入密码" type="password" />
-      <button @click="login">登录</button>
+      <button @click="login" :disabled="loading">登录</button>
       <text v-if="errorMessage">{{ errorMessage }}</text>
+      <view v-if="loading" class="loading-spinner">
+        <div class="spinner"></div> <!-- 旋转加载器 -->
+        <text>加载中...</text>
+      </view>
     </view>
   </view>
 </template>
@@ -15,7 +19,8 @@ export default {
     return {
       username: '',
       password: '',
-      errorMessage: ''
+      errorMessage: '',
+      loading: false // 加载状态
     };
   },
   methods: {
@@ -25,8 +30,9 @@ export default {
         return;
       }
 
+      this.loading = true; // 设置加载状态为 true
+
       try {
-        // 调用云函数或数据库检查用户
         const response = await uniCloud.callFunction({
           name: 'loginuser',
           data: {
@@ -34,12 +40,14 @@ export default {
             password: this.password
           }
         });
-        
+
+        this.loading = false; // 请求完成后设置加载状态为 false
+
         if (response.result.code === 200) {
           // 登录成功，存储用户信息
           uni.setStorage({
-            key: 'userInfo', // 存储的键
-            data: response.result.userInfo, // 存储的值
+            key: 'userInfo',
+            data: response.result.userInfo,
             success: () => {
               uni.showToast({
                 title: '登录成功',
@@ -54,6 +62,7 @@ export default {
           this.errorMessage = response.result.message;
         }
       } catch (error) {
+        this.loading = false; // 请求完成后设置加载状态为 false
         this.errorMessage = '登录失败，请重试';
       }
     }
@@ -75,8 +84,8 @@ export default {
 }
 
 input {
-  width: 100%;
   padding: 10px;
+  justify-content:center;
   margin: 10px 0;
   border: 1px solid #ccc;
 }
@@ -90,7 +99,26 @@ button {
   border-radius: 5px;
 }
 
-text {
-  color: red;
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px; /* 调整间距 */
+}
+
+.spinner {
+  width: 20px; 
+  height: 20px; 
+  border: 4px solid #ccc; 
+  border-top: 4px solid #007aff;
+  border-radius: 50%; /* 圆形 */
+  animation: spin 1s linear infinite; 
+  margin-right: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style>
