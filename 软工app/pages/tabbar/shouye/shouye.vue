@@ -8,8 +8,8 @@
             <view v-if="showView" class="menu-overlay">
                 <view class="menu-content">
                     <text class="chuang" @tap="chuang">创建项目</text>
-                    <text class="jiaru">加入项目</text>
-                    <button @tap="toggleView">关闭</button>
+                    
+                    <button @tap="toggleView" style="margin-top: 40px;">关闭</button>
                 </view>
             </view>
             <uni-search-bar
@@ -68,7 +68,7 @@ export default {
     },
     components: {
         Daohang,
-        Tuijian	
+        Tuijian    
     },
 };
 </script>
@@ -142,11 +142,7 @@ export default {
         text-align: center;
     }
 
-    .jiaru {
-        font-size: 25px;
-        padding-top: 20px;
-        text-align: center;
-    }
+    
 
     button {
         width: 100%;
