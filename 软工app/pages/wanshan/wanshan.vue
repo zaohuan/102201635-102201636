@@ -13,7 +13,7 @@
       </view>
       <view class="form-item">
         <text>学院：</text>
-        <picker v-model="selectacademy" :range="academy" @change="onacademyChange">
+        <picker :value="selectacademy" :range="academy" @change="onacademyChange">
           <view class="picker">
             {{ academy[selectacademy] || '请选择选择学院' }}
           </view>
@@ -21,7 +21,7 @@
       </view>
       <view class="form-item">
         <text>身份：</text>
-        <picker v-model="selectidentity" :range="identity" @change="onidentityChange">
+        <picker :value="selectidentity" :range="identity" @change="onidentityChange">
           <view class="picker">
             {{ identity[selectidentity] || '请选择选择身份' }}
           </view>
@@ -38,8 +38,8 @@ export default {
     return {
       username: '',
       realname: '',
-      selectacademy: null,
-      selectidentity: null,
+      selectacademy: null, // 初始化为 null
+      selectidentity: null, // 初始化为 null
       academy: ['计算机与大数据学院', '化工学院', '电气工程与自动化学院', '机械工程与自动化学院', '土木工程学院', '环境与安全工程学院', '经济与管理学院', '物理与信息学院', '人文社会科学学院', '其他学院'],
       identity: ['学生', '老师']
     };
@@ -51,10 +51,10 @@ export default {
       });
     },
     onacademyChange(e) {
-      this.selectacademy = e.detail.value;
+      this.selectacademy = e.detail.value; // 更新选择的学院
     },
     onidentityChange(e) {
-      this.selectidentity = e.detail.value;
+      this.selectidentity = e.detail.value; // 更新选择的身份
     },
     async submitForm() {
       if (!this.realname || this.selectacademy === null || this.selectidentity === null) {
@@ -88,6 +88,9 @@ export default {
             data: userData
           });
           this.resetForm();
+          uni.switchTab({
+            url: '/pages/tabbar/wode/wode'
+          });
         } else {
           uni.showToast({
             title: response.result.message,
@@ -104,8 +107,8 @@ export default {
     },
     resetForm() {
       this.realname = '';
-      this.selectacademy = null;
-      this.selectidentity = null;
+      this.selectacademy = null; // 重置为 null
+      this.selectidentity = null; // 重置为 null
     }
   },
   mounted() {
@@ -130,6 +133,7 @@ export default {
 <style>
 .container {
   padding: 20px;
+  margin-top: 80px; 
 }
 .form-item {
   margin-bottom: 15px;
@@ -149,21 +153,24 @@ button {
   border-radius: 5px;
 }
 .picker {
-  width: 100%;
+  justify-content: center;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #f9f9f9;
   text-align: center;
 }
-.box2 {
-  width: 100%;
-  height: 80px;
-  background: #FFFFFF;
-  display: flex;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  justify-content: center;
-  align-items: center;
+.box2{
+    width: 100%;
+    height: 80px;
+    background: #FFFFFF;
+    display: flex;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+	top: 0;
+	z-index: 1000;
 }
 .biaoti2 {
   font-size: 55rpx;
