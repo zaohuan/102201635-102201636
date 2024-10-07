@@ -1,6 +1,6 @@
 <template>
   <view>
-    <view class="box2">
+    <view class="box3">
       <view class="back-btn" @click="goBack">
         <text class="back-icon">返回</text>
       </view>
@@ -133,7 +133,6 @@ export default {
 <style>
 .container {
   padding: 20px;
-  margin-top: 80px; 
 }
 .form-item {
   margin-bottom: 15px;
@@ -160,7 +159,7 @@ button {
   background-color: #f9f9f9;
   text-align: center;
 }
-.box2{
+.box3{
     width: 100%;
     height: 80px;
     background: #FFFFFF;
@@ -168,9 +167,6 @@ button {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     justify-content: center;
     align-items: center;
-    position: fixed;
-	top: 0;
-	z-index: 1000;
 }
 .biaoti2 {
   font-size: 55rpx;
