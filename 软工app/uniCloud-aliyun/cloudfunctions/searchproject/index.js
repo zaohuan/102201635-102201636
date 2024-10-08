@@ -18,7 +18,8 @@ exports.main = async (event) => {
 				dbCmd.or([
 					{ 'data.name': new RegExp(keyword.trim(), 'i') },
 					{ 'data.description': new RegExp(keyword.trim(), 'i') },
-					{ 'data.category': new RegExp(keyword.trim(), 'i') }
+					{ 'data.category': new RegExp(keyword.trim(), 'i') },
+					{ 'data.username': new RegExp(keyword.trim(), 'i') },
 				])
 			)
 			.get();
