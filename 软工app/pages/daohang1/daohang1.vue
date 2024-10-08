@@ -23,6 +23,7 @@
 		        <view>项目人数：{{ item.data.scale }}</view>
 		        <view>项目状态：{{ item.data.state }}</view> 
 		        <view>招募状态：{{ item.data.que }}</view>
+				
 		    </view>
 		</view>
 		
@@ -59,7 +60,7 @@ export default {
                     'data.category': '自然科学'
                 }).get();
 
-                //console.log('数据库查询结果:', res);
+                console.log('数据库查询结果:', res);
                 
                 if (res.result.data && res.result.data.length > 0) {
                     this.results = res.result.data;  // 设置项目数据
@@ -80,6 +81,7 @@ export default {
 			    scale: item.data.scale,
 			  		state:item.data.state,
 			  		que:item.data.que ,
+					username:item.data.username,
 			  };
 		          // 异步存储项目信息
 		          uni.setStorage({
