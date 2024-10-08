@@ -14,6 +14,7 @@
 			<text>项目人数规模：{{ projectData.scale }}</text>
 			<text>是否缺人：{{ projectData.que }}</text>
 			<text>项目状态：{{ projectData.state}}</text>
+			<text>创建人：{{projectData.username}}</text>
 		</view>
 		<view v-else>
 			<text>没有项目数据</text>
@@ -32,11 +33,14 @@
 export default {
   data() {
     return {
-      projectData: null
+      projectData: null,
+	  
     };
   },
   onLoad() {
     // 获取存储的项目数据
+	 
+	
     uni.getStorage({
       key: 'projectData',
       success: (res) => {
