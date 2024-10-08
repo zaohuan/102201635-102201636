@@ -48,6 +48,7 @@ export default {
 					    scale: item.data.scale,
 					  		state:item.data.state,
 					  		que:item.data.que ,
+							username:item.data.username,
 					  };
 		        // 异步存储项目信息
 		        uni.setStorage({
