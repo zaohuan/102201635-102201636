@@ -36,7 +36,7 @@
 		            :key="index" 
 		            :title="project.data.name" 
 		            :note="project.data.description"
-		            clickable="true">
+		            :clickable="true">
 		          </uni-list-item>
 		        </uni-list>
 		      </view>  
@@ -66,7 +66,7 @@ export default {
 			      batchSize: 3 // 每次显示 3 个项目
         };
     },
-	onShow(){
+	mounted(){
 		 this.fetchAllProjects(); // 页面加载时获取所有可推荐的项目
 	},
     methods: {
