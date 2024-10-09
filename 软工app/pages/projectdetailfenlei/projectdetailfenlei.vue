@@ -15,6 +15,10 @@
 			<text>是否缺人：{{ projectData.que }}</text>
 			<text>项目状态：{{ projectData.state}}</text>
 			<text>创建人：{{projectData.username}}</text>
+			<text>联系方式：{{projectData.lianxi}}</text>
+			<text>创建人真实姓名：{{realname}}</text>
+			<text>创建人所在学院：{{academy}}</text>
+			<text>创建人身份：{{identity}}</text>
 		</view>
 		<view v-else>
 			<text>没有项目数据</text>
@@ -34,7 +38,10 @@ export default {
   data() {
     return {
       projectData: null,
-	  
+	  username:'',
+	  realname: '',
+	  identity:'',
+	  academy:'',
     };
   },
   onLoad() {
@@ -50,6 +57,8 @@ export default {
         console.log('没有找到项目数据');
       }
     });
+	this.getUserData();
+	
   },
   methods:{
 	  goBack() {
@@ -57,7 +66,30 @@ export default {
 	      delta: 1
 	    });
 	  },
-  }
+	  async getUserData() {
+	    try {
+	  	  
+	      const res = await uniCloud.callFunction({
+	        name: 'getdetailbyusername',
+	        data: {
+	          username: this.projectData.username 
+	        }
+	      });
+	  
+	      if (res.result.code === 200 && res.result.data) {
+	        const userData = res.result.data;
+	        this.realname = userData.realname;
+	        this.academy = userData.academy;
+	        this.identity = userData.identity;
+	      } else {
+	        console.error('获取用户信息失败', res.result.message);
+	      }
+	    } catch (error) {
+	      console.error('调用云函数失败', error);
+	    }
+	  },
+  },
+  
 };
 </script>
 
