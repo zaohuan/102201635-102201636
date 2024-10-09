@@ -5,10 +5,10 @@ const db = uniCloud.database();
 
 exports.main = async (event, context) => {
   // 解构参数
-  const { name, description, category, scale, state,que,username } = event;
+  const { name, description, category, scale, state,que,username,lianxi } = event;
 
   // 检查必填参数是否存在
-  if (!name || !description || !category || !scale|| !state||!que||!username) {
+  if (!name || !description || !category || !scale|| !state||!que||!username||!lianxi) {
     return {
       success: false,
       error: '缺少必要的参数'
@@ -26,6 +26,7 @@ exports.main = async (event, context) => {
 		state,
 		que,
 		username,
+		lianxi,
         createdAt: new Date()
       }
     });
