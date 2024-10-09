@@ -13,6 +13,7 @@
           <text>规模: {{ project.data.scale }}</text>
           <text>状态: {{ project.data.state }}</text>
           <text>是否缺人: {{ project.data.que }}</text>
+		  <text>联系方式: {{ project.data.lianxi }}</text>
         </view>
       </view>
       <view class="button-container">
