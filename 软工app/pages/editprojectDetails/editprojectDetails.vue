@@ -26,7 +26,12 @@
     
     <view class="form-item">
       <text>项目人数规模：</text>
-      <input v-model="projectScale" placeholder="请输入目前参与项目的人数" />
+      <input 
+        type="number" 
+        v-model="projectScale" 
+        placeholder="请输入目前参与项目的人数(请输入数字)" 
+        @input="validateScale" 
+      />
     </view>
     
     <view class="form-item">
@@ -46,7 +51,10 @@
         </view>
       </picker>
     </view>
-    
+    <view class="form-item">
+      <text>联系方式：</text>
+      <input v-model="lianxi" placeholder="请输入联系方式" />
+    </view>
     <button @click="updateProject">修改项目</button>
   </view>
 </template>
@@ -64,7 +72,8 @@ export default {
       selectedCategory: undefined,
       selectedState: undefined,
       selectedQue: undefined,
-      projectId: '' // 用于存储项目ID
+      projectId: '' ,// 用于存储项目ID
+	  lianxi:'',
     };
   },
   onLoad(options) {
@@ -72,6 +81,16 @@ export default {
     this.getProjectDetails(this.projectId); // 加载项目的详细信息
   },
   methods: {
+	  validateScale() {
+	      const isValid = /^[0-9]*$/.test(this.projectScale);
+	      if (!isValid) {
+	        uni.showToast({
+	          title: '请输入有效的数字',
+	          icon: 'none'
+	        });
+	        this.projectScale = this.projectScale.replace(/[^0-9]/g, ''); // 只保留数字
+	      }
+	    },
     async getProjectDetails(id) {
       const res = await uniCloud.callFunction({
         name: 'getProjectDetails',
@@ -85,10 +104,11 @@ export default {
         this.projectScale = project.data.scale;
         this.selectedState = this.states.indexOf(project.data.state);
         this.selectedQue = this.ques.indexOf(project.data.que);
+		this.lianxi = project.data.lianxi;
       }
     },
     async updateProject() {
-      if (!this.projectName || !this.projectDescription || this.selectedCategory === undefined || !this.projectScale || this.selectedState === undefined || this.selectedQue === undefined) {
+      if (!this.projectName || !this.projectDescription || this.selectedCategory === undefined || !this.projectScale || this.selectedState === undefined || this.selectedQue === undefined||!this.lianxi) {
         uni.showToast({
           title: '请填写所有字段',
           icon: 'none'
@@ -104,6 +124,7 @@ export default {
         scale: this.projectScale,
         state: this.states[this.selectedState],
         que: this.ques[this.selectedQue],
+		lianxi:this.lianxi,
       };
 
       try {
