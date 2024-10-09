@@ -2,7 +2,7 @@
 const db = uniCloud.database();
 
 exports.main = async (event, context) => {
-  const { id, name, description, category, scale, state, que } = event;
+  const { id, name, description, category, scale, state, que, lianxi } = event;
 
   // 准备要更新的数据
   const updateData = {};
@@ -16,7 +16,7 @@ exports.main = async (event, context) => {
   if (scale) updateData.data.scale = scale;
   if (state) updateData.data.state = state;
   if (que) updateData.data.que = que;
-
+  if (lianxi) updateData.data.lianxi = lianxi;
   try {
     const res = await db.collection('projects').doc(id).update(updateData);
 
