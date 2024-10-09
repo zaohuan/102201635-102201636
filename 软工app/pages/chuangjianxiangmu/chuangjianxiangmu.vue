@@ -26,8 +26,14 @@
     
     <view class="form-item">
       <text>项目人数规模：</text>
-      <input v-model="projectScale" placeholder="请输入目前参与项目的人数" />
+      <input 
+        type="number" 
+        v-model="projectScale" 
+        placeholder="请输入目前参与项目的人数(请输入数字)" 
+        @input="validateScale" 
+      />
     </view>
+
 
     <view class="form-item">
       <text>是否缺人：</text>
@@ -46,7 +52,10 @@
         </view>
       </picker>
     </view>
-
+	<view class="form-item">
+	  <text>联系方式：</text>
+	  <input v-model="lianxi" placeholder="请输入联系方式" />
+	</view>
     <button @click="createProject">创建项目</button>
   </view>
 </template>
@@ -64,9 +73,20 @@ export default {
       categories: ['自然科学', '工程技术', '医学健康', '社会科学', '人文历史', '交叉学科'],
       states: ['准备中', '进行中', '已完结'],
       ques: ['是', '否'],
+	  lianxi:null,
     };
   },
   methods: {
+	  validateScale() {
+	      const isValid = /^[0-9]*$/.test(this.projectScale);
+	      if (!isValid) {
+	        uni.showToast({
+	          title: '请输入有效的数字',
+	          icon: 'none'
+	        });
+	        this.projectScale = this.projectScale.replace(/[^0-9]/g, ''); // 只保留数字
+	      }
+	    },
     onCategoryChange(e) {
       this.selectedCategory = e.detail.value;
     },
@@ -86,7 +106,7 @@ export default {
           (this.selectedCategory === null && this.selectedCategory !== 0) || 
           !this.projectScale || 
           (this.selectedState === null && this.selectedState !== 0) || 
-          (this.selectedQue === null && this.selectedQue !== 0)) {
+          (this.selectedQue === null && this.selectedQue !== 0)||!this.lianxi) {
         uni.showToast({
           title: '请填写所有字段',
           icon: 'none'
@@ -110,6 +130,7 @@ export default {
         scale: this.projectScale,
         state: this.states[this.selectedState],
         que: this.ques[this.selectedQue],
+		lianxi:this.lianxi,
       };
 
       try {
@@ -163,6 +184,7 @@ export default {
       this.selectedCategory = null;
       this.selectedState = null;
       this.selectedQue = null;
+	  this.lianxi=null;
     }
   }
 };
