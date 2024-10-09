@@ -31,11 +31,11 @@
 		      
 		      <view class="project-list">
 		        <uni-list>
-		          <uni-list-item 
+		          <uni-list-item @click="jump"
 		            v-for="(project, index) in recommendedProjects" 
 		            :key="index" 
 		            :title="project.data.name" 
-		            :note="project.data.description"
+		            :note="project.data.description.length > 15 ? project.data.description.slice(0, 15) + '...' : project.data.description"
 		            :clickable="true">
 		          </uni-list-item>
 		        </uni-list>
@@ -70,6 +70,11 @@ export default {
 		 this.fetchAllProjects(); // 页面加载时获取所有可推荐的项目
 	},
     methods: {
+		jump(){
+			uni.navigateTo({
+			  url: '/pages/projectdetailfenlei/projectdetailfenlei'
+			});
+		},
         toggleView() {
             this.showView = !this.showView;
             console.log('Toggle View:', this.showView);
