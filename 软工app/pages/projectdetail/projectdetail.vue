@@ -15,6 +15,7 @@
 			<text>项目人数规模：{{ projectData.scale }}</text>
 			<text>是否缺人：{{ projectData.que }}</text>
 			<text>项目状态：{{ projectData.state}}</text>
+			<text>联系方式：{{ projectData.lianxi}}</text>
 		</view>
 		<view v-else>
 			<text>没有项目数据</text>
