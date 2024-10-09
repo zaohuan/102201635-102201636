@@ -1,12 +1,12 @@
 <template>
 	<view class="container">
-		<view class="box3">
+		<view class="box5">
 			<view class="back-btn" @click="fanhui">
 				<text class="back-icon">返回</text>
 			</view>
 			<text class="biaoti2">我的项目</text>
 		</view>
-		<uni-collapse v-if="createdProjects.length > 0">
+		<uni-collapse style="margin-top:80px ;" v-if="createdProjects.length > 0">
 		    <uni-collapse-item :show-animation="true" title="我创建的项目">
 		        <uni-list :border="true" v-if="createdProjects.length > 0">
 					<uni-list-item 
@@ -83,15 +83,7 @@ export default {
 		display: flex;
 		flex-direction: column;
 	}
-.box3{
-    width: 100%;
-    height: 80px;
-    background: #FFFFFF;
-    display: flex;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    justify-content: center;
-    align-items: center;
-}
+
 .biaoti2 {
   font-size: 55rpx;
   font-weight: 700;
@@ -115,5 +107,17 @@ export default {
 		font-size: 20px;
 		padding-top: 70px;
 		padding-left: 190px;
+	}
+	.box5{
+	    width: 100%;
+	    height: 80px;
+	    background: #FFFFFF;
+	    display: flex;
+	    
+	    justify-content: center;
+	    align-items: center;
+	    position: fixed;
+		top: 0;
+		z-index: 1000;
 	}
 </style>
