@@ -31,7 +31,7 @@
 		      
 		      <view class="project-list">
 		        <uni-list>
-		          <uni-list-item @click="jump"
+		          <uni-list-item @click="navigateToDetails(project)"
 		            v-for="(project, index) in recommendedProjects" 
 		            :key="index" 
 		            :title="project.data.name" 
@@ -149,6 +149,29 @@ export default {
 		        this.currentIndex = endIndex;
 		      }
 		    },
+			navigateToDetails(item) {
+						  const projectData = {
+						    name: item.data.name,
+						    description: item.data.description,
+						    category: item.data.category,
+						    scale: item.data.scale,
+						  		state:item.data.state,
+						  		que:item.data.que ,
+								username:item.data.username,
+							  lianxi:item.data.lianxi,
+						  };
+			        // 异步存储项目信息
+			        uni.setStorage({
+			           key: 'projectData', // 存储的键
+			           data: projectData, // 存储的值
+			           success: () => {
+			             // 跳转到 ProjectList 页面
+			             uni.navigateTo({
+			               url: '/pages/projectdetailfenlei/projectdetailfenlei' // 确保路径正确
+			             });
+			           }
+			         });
+			    }
 		  
     },
     components: {
