@@ -1,6 +1,7 @@
 <template>
     <view>
-        <view class="box1">
+		<view :style="{ height: statusBarHeight + 'px' }"></view>
+        <view class="box1" style="{ marginTop: statusBarHeight + 'px' }">
             <view v-if="showView" class="gongneng">
                 <button class="gongnengbutton1">搜索联系人</button>
                 <button class="gongnengbutton2">添加联系人</button>
@@ -35,6 +36,7 @@
     export default {
         data() {
             return {
+				statusBarHeight: 0 ,
                 showView: false,
                 avatarList: [
                     { url: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png' },
@@ -43,6 +45,10 @@
                 ]
             }
         },
+		mounted() {
+			const systemInfo = uni.getSystemInfoSync();
+			this.statusBarHeight = systemInfo.statusBarHeight; 
+		},
         methods: {
             liaotian() {
                 console.log("chufa")
