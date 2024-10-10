@@ -123,6 +123,7 @@ export default {
 	.ddetails{
 		margin-top:100px;
 		margin-left: 10%;
+		margin-right: 10%;
 		display: flex;
 		flex-direction: column;
 		word-wrap: break-word;
