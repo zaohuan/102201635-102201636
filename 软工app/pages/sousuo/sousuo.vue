@@ -1,7 +1,8 @@
 <template>
     <view>
         <view>
-            <view class="box2">
+			<view :style="{ height: statusBarHeight + 'px' }"></view>
+            <view class="box2" :style="{ marginTop: statusBarHeight + 'px' }">
                 <view class="back-btn" @click="goBack">
                     <text class="back-icon">返回</text>
                 </view>
@@ -36,7 +37,8 @@ export default {
     data() {
         return {
             results: [],
-            loading: false
+            loading: false,
+			statusBarHeight: 0
         };
     },
     methods: {
@@ -90,6 +92,10 @@ export default {
             }
         }
     },
+	mounted() {
+		const systemInfo = uni.getSystemInfoSync();
+		this.statusBarHeight = systemInfo.statusBarHeight;
+	},
     onLoad(options) {
         // Use onLoad to access page parameters
         const keyword = options.keyword || ''; 
