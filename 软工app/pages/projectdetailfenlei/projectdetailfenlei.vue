@@ -1,6 +1,7 @@
 <template>
 	<view class="container">
-		<view class="box3">
+		<view :style="{ height: statusBarHeight + 'px' }"></view>
+		<view class="box3" :style="{ marginTop: statusBarHeight + 'px' }">
 		  <view class="back-btn" @click="goBack">
 		    <text class="back-icon">返回</text>
 		  </view>
@@ -42,6 +43,7 @@ export default {
 	  realname: '',
 	  identity:'',
 	  academy:'',
+	  statusBarHeight: 0
     };
   },
   onLoad() {
@@ -58,10 +60,12 @@ export default {
       fail: () => {
         console.log('没有找到项目数据');
       }
-    });
+    });	
 	
-	
-	
+  },
+  mounted() {
+  	const systemInfo = uni.getSystemInfoSync();
+  	this.statusBarHeight = systemInfo.statusBarHeight;
   },
   methods:{
 	  
@@ -107,13 +111,7 @@ export default {
 			display: flex;
 			flex-direction: column;
 		}
-	.box1{
-			width: 100%;
-			height: 120px;
-			background: #FFFFFF;
-			display: flex;
-			
-		}
+
 		
 	.biaoti{
 			font-size: 55rpx;
@@ -123,7 +121,8 @@ export default {
 			padding-bottom:25px;
 		}
 	.ddetails{
-		margin:20px;
+		margin-top:100px;
+		margin-left: 10%;
 		display: flex;
 		flex-direction: column;
 		word-wrap: break-word;
@@ -149,6 +148,7 @@ export default {
 	    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 	    justify-content: center;
 	    align-items: center;
+		position: fixed;
 	}
 	.biaoti2 {
 	  font-size: 55rpx;
