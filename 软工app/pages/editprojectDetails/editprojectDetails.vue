@@ -9,7 +9,8 @@
       <text>项目简介：</text>
       <uni-easyinput 
         type="textarea" 
-        autoHeight 
+        autoHeight
+		:maxlength="-1"
         v-model="projectDescription" 
         placeholder="请输入项目简介" 
       ></uni-easyinput>
