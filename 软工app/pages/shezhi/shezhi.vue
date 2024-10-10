@@ -1,6 +1,7 @@
 <template>
 	<view class="container">
-		<view class="box3">
+		<view :style="{ height: statusBarHeight + 'px' }"></view>
+		<view class="box3" :style="{ marginTop: statusBarHeight + 'px' }">
 		  <view class="back-btn" @click="goBack">
 			<text class="back-icon">返回</text>
 		  </view>
@@ -30,7 +31,7 @@
 	export default {
 		data() {
 			return {
-				
+				statusBarHeight: 0
 			}
 		},
 		methods: {
@@ -44,6 +45,10 @@
 			    url: "/pages/zhanghao/zhanghao"
 			  });
 			}
+		},
+		mounted() {
+			const systemInfo = uni.getSystemInfoSync();
+			this.statusBarHeight = systemInfo.statusBarHeight;
 		}
 	}
 </script>
@@ -62,6 +67,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   justify-content: center;
   align-items: center;
+  position: fixed;
 }
 .biaoti2 {
   font-size: 55rpx;
@@ -81,7 +87,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		margin-top: 40px;
+		margin-top: 80px;
 		width: 100%;
 		padding: 0 20px;
 }
