@@ -69,9 +69,11 @@ export default {
         };
     },
 	mounted(){
-		 this.fetchAllProjects(); // 页面加载时获取所有可推荐的项目
 		 const systemInfo = uni.getSystemInfoSync();
 		 this.statusBarHeight = systemInfo.statusBarHeight; 
+	},
+	onShow(){
+		this.fetchAllProjects(); // 页面加载时获取所有可推荐的项目
 	},
     methods: {
 		jump(){
