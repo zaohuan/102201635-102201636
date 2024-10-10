@@ -1,6 +1,7 @@
 <template>
 	<view class="container">
-		<view class="box3">
+		<view :style="{ height: statusBarHeight + 'px' }"></view>
+		<view class="box3" :style="{ marginTop: statusBarHeight + 'px' }">
 			<view class="back-btn" @click="fanhui">
 				<text class="back-icon">返回</text>
 			</view>
@@ -34,7 +35,8 @@
 export default {
   data() {
     return {
-      projectData: null
+      projectData: null,
+	  statusBarHeight: 0
     };
   },
   onLoad() {
@@ -48,6 +50,10 @@ export default {
         console.log('没有找到项目数据');
       }
     });
+  },
+  mounted() {
+  	const systemInfo = uni.getSystemInfoSync();
+  	this.statusBarHeight = systemInfo.statusBarHeight;
   },
   methods:{
 	  fanhui()
@@ -74,6 +80,7 @@ export default {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     justify-content: center;
     align-items: center;
+	position: fixed;
 }
 .biaoti2 {
   font-size: 55rpx;
@@ -91,8 +98,8 @@ export default {
 }
 .detailssss{
 	word-wrap: break-word;
-	margin-top: 10%;
-	margin-left: 5%;
+	margin-top:100px;
+	margin-left: 10%;
 	display: flex;
 	font-size: 20px;
 	flex-direction: column;
