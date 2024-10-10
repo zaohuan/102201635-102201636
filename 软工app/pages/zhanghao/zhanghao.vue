@@ -1,6 +1,7 @@
 <template>
   <view>
-    <view class="box3">
+	<view :style="{ height: statusBarHeight + 'px' }"></view>
+    <view class="box7" :style="{ top: statusBarHeight + 'px' }">
       <view class="back-btn" @click="goBack">
         <text class="back-icon">返回</text>
       </view>
@@ -30,8 +31,13 @@ export default {
     return {
       newPassword: '',
       confirmPassword: '',
-      errorMessage: ''
+      errorMessage: '',
+	  statusBarHeight: 0
     };
+  },
+  mounted() {
+  	const systemInfo = uni.getSystemInfoSync();
+  	this.statusBarHeight = systemInfo.statusBarHeight;
   },
   methods: {
     goBack() {
@@ -106,7 +112,7 @@ export default {
 </script>
 
 <style>
-.box3 {
+.box7 {
     width: 100%;
     height: 80px;
     background: #FFFFFF;
@@ -114,6 +120,7 @@ export default {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     justify-content: center;
     align-items: center;
+	position: fixed;
 }
 .biaoti2 {
     font-size: 55rpx;
@@ -134,6 +141,7 @@ export default {
 }
 .containerr {
     padding: 20px;
+	margin-top: 80px;
 }
 input {
     padding: 10px;
