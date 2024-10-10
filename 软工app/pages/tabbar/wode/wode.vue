@@ -1,6 +1,7 @@
 <template>
   <view class="container">
-    <view class="box1">
+	<view :style="{ height: statusBarHeight + 'px' }"></view>
+    <view class="box1" style="{ marginTop: statusBarHeight + 'px' }">
       <text class="biaoti">我的</text>
     </view>
     <view class="wode">
@@ -30,11 +31,16 @@
 export default {
   data() {
     return {
+	  statusBarHeight: 0 ,
       username: '',  
       realname: '',  
       academy: '',   
-      identity: ''   
+      identity: ''
     };
+  },
+  mounted(){
+  	 const systemInfo = uni.getSystemInfoSync();
+  	 this.statusBarHeight = systemInfo.statusBarHeight; 
   },
   methods: {
     shezhi() {
