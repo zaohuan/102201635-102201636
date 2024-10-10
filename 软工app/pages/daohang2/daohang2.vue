@@ -1,7 +1,8 @@
 <template>
     <view>
         <view>
-            <view class="box2">
+			<view :style="{ height: statusBarHeight + 'px' }"></view>
+            <view class="box2" :style="{ marginTop: statusBarHeight + 'px' }">
                 <view class="back-btn" @click="goBack">
                     <text class="back-icon">返回</text>
                 </view>
@@ -39,7 +40,8 @@ export default {
     data() {
         return {
             results: [],  // 用来存储查询到的项目数据
-            loading: false // 加载状态
+            loading: false ,// 加载状态
+			statusBarHeight: 0 
         };
     },
     methods: {
@@ -98,7 +100,9 @@ export default {
 		    }
     },
     mounted() {
-        this.fetchProjects();  
+        this.fetchProjects();
+		const systemInfo = uni.getSystemInfoSync();
+		this.statusBarHeight = systemInfo.statusBarHeight;
     }
 
 };
@@ -147,6 +151,7 @@ export default {
 	    height: 500rpx; 
 	    font-size: 50rpx;
 	    color: #999;
+		margin-top: 80px;
 	}
 	.nores_box {
 		display: flex;

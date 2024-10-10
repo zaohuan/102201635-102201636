@@ -1,6 +1,7 @@
 <template>
 	<view class="container">
-		<view class="box5">
+		<view :style="{ height: statusBarHeight + 'px' }"></view>
+		<view class="box5" :style="{ marginTop: statusBarHeight + 'px' }">
 			<view class="back-btn" @click="fanhui">
 				<text class="back-icon">返回</text>
 			</view>
@@ -29,6 +30,7 @@ export default {
   data() {
       return {
           createdProjects: [], // 存储我创建的项目
+		  statusBarHeight: 0
       };
   },
   onShow(){
@@ -72,6 +74,10 @@ export default {
         url: "/pages/tabbar/wode/wode"
       });
     }
+  },
+  mounted() {
+  	const systemInfo = uni.getSystemInfoSync();
+  	this.statusBarHeight = systemInfo.statusBarHeight;
   }
 };
 </script>

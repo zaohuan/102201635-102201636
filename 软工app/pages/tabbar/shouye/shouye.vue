@@ -1,7 +1,8 @@
 <template>
     <view>
         <view>
-            <view class="box1">
+			<view :style="{ height: statusBarHeight + 'px' }"></view>
+            <view class="box1" style="{ marginTop: statusBarHeight + 'px' }">
                 <text class="biaoti">首页</text>
                 <image class="jia" src="../../../static/jia.png" @tap="toggleView"></image>
             </view>
@@ -58,6 +59,7 @@ import Tuijian from "../../../uni_modules/tuijian/tuijian.vue";
 export default {
     data() {
         return {
+			statusBarHeight: 0 ,
             searchKeyword: '', 
             showView: false,
 			allProjects: [], // 全部可供推荐的项目
@@ -68,6 +70,8 @@ export default {
     },
 	mounted(){
 		 this.fetchAllProjects(); // 页面加载时获取所有可推荐的项目
+		 const systemInfo = uni.getSystemInfoSync();
+		 this.statusBarHeight = systemInfo.statusBarHeight; 
 	},
     methods: {
 		jump(){

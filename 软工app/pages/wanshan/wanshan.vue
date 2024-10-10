@@ -1,6 +1,7 @@
 <template>
   <view>
-    <view class="box3">
+	<view :style="{ height: statusBarHeight + 'px' }"></view>
+    <view class="box6" :style="{ top: statusBarHeight + 'px' }">
       <view class="back-btn" @click="goBack">
         <text class="back-icon">返回</text>
       </view>
@@ -41,7 +42,8 @@ export default {
       selectacademy: null, // 初始化为 null
       selectidentity: null, // 初始化为 null
       academy: ['计算机与大数据学院', '化工学院', '电气工程与自动化学院', '机械工程与自动化学院', '土木工程学院', '环境与安全工程学院', '经济与管理学院', '物理与信息学院', '人文社会科学学院', '其他学院'],
-      identity: ['学生', '老师']
+      identity: ['学生', '老师'],
+	  statusBarHeight: 0
     };
   },
   methods: {
@@ -120,6 +122,8 @@ export default {
           this.realname = res.data.realname;
           this.selectacademy = this.academy.indexOf(res.data.academy);
           this.selectidentity = this.identity.indexOf(res.data.identity);
+		  const systemInfo = uni.getSystemInfoSync();
+		  this.statusBarHeight = systemInfo.statusBarHeight;
         }
       },
       fail: () => {
@@ -133,23 +137,11 @@ export default {
 <style>
 .container {
   padding: 20px;
+  margin-top: 80px;
+  
 }
 .form-item {
   margin-bottom: 15px;
-}
-input {
-  padding: 10px;
-  justify-content: center;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-}
-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #007aff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
 }
 .picker {
   justify-content: center;
@@ -159,14 +151,15 @@ button {
   background-color: #f9f9f9;
   text-align: center;
 }
-.box3{
-    width: 100%;
-    height: 80px;
-    background: #FFFFFF;
-    display: flex;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    justify-content: center;
-    align-items: center;
+.box6 {
+  width: 100%;
+  height: 80px;
+  background: #FFFFFF;
+  display: flex;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  align-items: center;
+  position: fixed;
 }
 .biaoti2 {
   font-size: 55rpx;
@@ -182,4 +175,19 @@ button {
   font-size: 35rpx;
   color: #000000;
 }
+input {
+  padding: 10px;
+  justify-content: center;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+}
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007aff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
 </style>
